@@ -1,17 +1,24 @@
 {
-  "name": "ssb",
+  "name": "ssb_admin",
   "version": "1.0.0",
   "description": "赛事宝后台系统",
   "main": "app.js",
   "dependencies": {
     "express": "^4.14.0",
-    "moment": "^2.15.1",
-    "path": "^0.12.7",
+    "jade": "^1.11.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/debugEagle/ssb_admin.git"
+  },
   "author": "xiaowu",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/debugEagle/ssb_admin/issues"
+  },
+  "homepage": "https://github.com/debugEagle/ssb_admin#readme"
 }
