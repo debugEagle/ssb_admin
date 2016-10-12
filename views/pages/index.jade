@@ -1,0 +1,53 @@
+extend ../layout
+
+block head
+  link(rel='stylesheet', href='css/uniform.css')
+  link(rel='stylesheet', href='css/select2.css')
+  link(rel='stylesheet', href='/css/jquery.gritter.css')
+  link(rel='stylesheet', href='/css/bootstrap-responsive.min.css')
+  //script(src='/js/select2.min.js')
+  script(src='common/js/index.js')
+  
+block sidebar
+  #sidebar
+    a.visible-phone(href='#')
+      i.icon.icon-home
+      |  主页
+    |   
+    ul
+      li
+        a(href='/paper')
+          i.icon.icon-inbox
+          |  
+          span 门票验证
+      |     
+      li
+        a(href='/orders')
+          i.icon.icon-th
+          |  
+          span 订单查询
+
+
+block content
+    #content
+      #content-header
+        #breadcrumb
+          a.tip-bottom(href='/', title='Go to Home')
+            i.icon-home
+            |  主页
+      // Action boxes
+      .container-fluid
+        .quick-actions_homepage
+          ul.quick-actions
+            li.bg_ly
+              a(href='/paper')
+                i.icon-th
+                | 门票验证
+            li.bg_lo
+              a(href='/orders')
+                i.icon-th
+                | 订单查询
+        // End-Action boxes
+        hr
+    
+    

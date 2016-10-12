@@ -1,0 +1,80 @@
+doctype html
+html(lang='en')
+  head
+    title 赛事宝管理系统
+    meta(charset='UTF-8')
+    |         
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    |    
+    link(rel='stylesheet', href='css/bootstrap.min.css')
+    |     
+    link(rel='stylesheet', href='css/bootstrap-responsive.min.css')
+    |         
+    link(rel='stylesheet', href='css/matrix-login.css')
+    |         
+    link(href='font-awesome/css/font-awesome.css', rel='stylesheet')
+    |         
+    style.
+      span.login_logo {
+      word-spacing: 8px;
+      letter-spacing: 6px;
+      }
+  |     
+  body
+    #loginbox
+      form#loginform.form-vertical
+        .control-group.normal_text
+          h3
+            img(src='img/logo.png', alt='Logo')
+            span.login_logo 赛事宝管理系统
+        |                 
+        .control-group
+          .controls
+            .main_input_box
+              span.add-on.bg_lg
+                i.icon-user
+              input.username(type='text', placeholder='用户名')
+        |                 
+        .control-group
+          .controls
+            .main_input_box
+              span.add-on.bg_ly
+                i.icon-lock
+              input.password(type='password', placeholder='密码')
+        |                 
+        .form-actions
+          span.pull-left
+            a#to-recover.flip-link.btn.btn-info(href='#') 修改密码
+          |                     
+          span.pull-right
+            a.btn.btn-success.login(type='submit') 登录
+      |             
+      form#recoverform.form-vertical(action='#')
+        .controls
+          .main_input_box
+            span.add-on.bg_lg
+              i.icon-user
+            input.rev_username(type='text', placeholder='用户名')
+            |                           
+            span.add-on.bg_ly
+              i.icon-lock
+            input.old_password(type='password', placeholder='旧密码')
+            |                           
+            span.add-on.bg_ly
+              i.icon-lock
+            input.new_password(type='password', placeholder='新密码')
+        |                 
+        .form-actions
+          span.pull-left
+            a#to-login.flip-link.btn.btn-success(href='#') &laquo; 返回登录
+          |                     
+          span.pull-right
+            a.btn.btn-info.revise 确认
+    |         
+    script(src='js/jquery.min.js')
+    |         
+    script(src='common/js/jquery.cookie.js')
+    |         
+    script(src='common/js/login.js')
+    |         
+    script(src='js/matrix.login.js')

@@ -1,0 +1,100 @@
+doctype html
+html(lang='en')
+  head
+    title 赛事宝管理系统
+    meta(charset='UTF-8') 
+    include ./includes/head
+    block head
+    script(type='text/javascript').
+      var tokenId = $.cookie('tokenId');
+      if (!tokenId || tokenId == 'null') {
+      alert('请先登录！')
+      self.location = "/login";
+      }
+    style.
+      span.headLeft {
+      font-size: larger;
+      position: relative;
+      left: 52%;
+      top: -48px;
+      color: white;
+      }
+      div#headerFront {
+      position: fixed;
+      }
+  body
+    // Header-part
+    #header
+      h1
+        a(href='/index') 赛事宝后台系统
+    // close-Header-part
+    #headerFront
+      span.headLeft 赛事宝后台系统
+    //
+      <div id="headerFront">
+      <span class="headRight">赛事宝后台系统</span>
+      </div>
+    // top-Header-menu
+    #user-nav.navbar.navbar-inverse
+      ul.nav
+        li#profile-messages.dropdown
+          a.dropdown-toggle(title='', href='#', data-toggle='dropdown', data-target='#profile-messages')
+            i.icon.icon-user
+            |   
+            span.text.username
+            b.caret
+          |       
+          ul.dropdown-menu
+            li.logout
+              a
+                i.icon-user
+                | 修改密码
+        |     
+        li.logout
+          a(title='', href='#')
+            i.icon.icon-share-alt
+            |  
+            span.text 退出
+    // Sidebar
+    block sidebar
+    //Alternative content
+    block content
+    // Footer-part
+    .row-fluid
+      #footer.span12  2016 &copy; 京竞技之旅科技有限公司  
+    // end-Footer-part
+    //- script(src='/js/excanvas.min.js')
+    //- script(src='/js/jquery.ui.custom.js')
+    script(src='/js/bootstrap.min.js')
+    script(src='common/js/public.js')
+    //- script(src='/js/jquery.flot.min.js')
+    //- script(src='/js/jquery.flot.resize.min.js')
+    //- script(src='/js/jquery.peity.min.js')
+    //- script(src='/js/fullcalendar.min.js')
+    //- script(src='/js/matrix.js')
+    //- script(src='/js/matrix.dashboard.js')
+    //- script(src='/js/jquery.gritter.min.js')
+    //- script(src='/js/matrix.interface.js')
+    //- script(src='/js/matrix.chat.js')
+    //- script(src='/js/jquery.validate.js')
+    //- script(src='/js/matrix.form_validation.js')
+    //- script(src='/js/jquery.wizard.js')
+    //- script(src='/js/jquery.uniform.js')
+    //- script(src='/js/select2.min.js')
+    //- script(src='/js/matrix.popover.js')
+    //- script(src='/js/jquery.dataTables.min.js')
+    //- script(src='/js/matrix.tables.js')
+    script(type='text/javascript').
+      function goPage (newURL) {
+      if (newURL != "") {
+      if (newURL == "-" ) {
+      resetMenu();
+      }
+      else {
+      document.location.href = newURL;
+      }
+      }
+      }
+      function resetMenu() {
+      document.gomenu.selector.selectedIndex = 2;
+      }

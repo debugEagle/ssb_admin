@@ -1,0 +1,20 @@
+{
+  "name": "ssb",
+  "version": "1.0.0",
+  "description": "赛事宝后台系统",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "html2jade": "^0.8.5",
+    "jade": "^1.11.0",
+    "moment": "^2.15.1",
+    "path": "^0.12.7",
+    "supervisor": "^0.11.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "xiaowu",
+  "license": "ISC"
+}
