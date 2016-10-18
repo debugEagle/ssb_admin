@@ -9,7 +9,7 @@ block head
   script(type='text/javascript').
     var tokenId = $.cookie('tokenId');
     if (!tokenId || tokenId == 'null') {
-    self.location = "/login";
+    self.location = "/";
     }
   script(src='common/js/orders.js')
   script(src='common/js/public.js')

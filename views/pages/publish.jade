@@ -18,7 +18,7 @@ block head
     script(type='text/javascript').
       var tokenId = $.cookie('tokenId');
       if (!tokenId || tokenId == 'null') {
-          self.location = "/login";
+          self.location = "/";
       }
     script(src='common/js/paper.js')
     
@@ -40,7 +40,6 @@ block sidebar
           i.icon.icon-th
           |  
           span 订单查询
-          if role > 1
       if role > 1
         li.active
           a(href='/publish')
