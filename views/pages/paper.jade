@@ -40,7 +40,13 @@ block sidebar
           i.icon.icon-th
           |  
           span 订单查询
-
+          if role > 1
+      if role > 1
+        li
+          a(href='/publish')
+            i.icon.icon-th
+            |  
+            span 发布赛事
 
 block content
     #content
@@ -50,9 +56,9 @@ block content
             i.icon-home
             |  主页
           |  
-          a.current(href='#') 门票验证
+          a.current(href='#') #{title}
         |     
-        h1 门票验证
+        h1 #{title}
       |   
       .container-fluid
         hr

@@ -8,6 +8,7 @@ block head
   //script(src='/js/select2.min.js')
   script(src='common/js/index.js')
   
+  
 block sidebar
   #sidebar
     a.visible-phone(href='#')
@@ -26,7 +27,12 @@ block sidebar
           i.icon.icon-th
           |  
           span 订单查询
-
+      if role > 1
+        li
+          a(href='/orders')
+            i.icon.icon-th
+            |  
+            span 发布赛事
 
 block content
     #content

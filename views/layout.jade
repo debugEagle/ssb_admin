@@ -8,8 +8,7 @@ html(lang='en')
     script(type='text/javascript').
       var tokenId = $.cookie('tokenId');
       if (!tokenId || tokenId == 'null') {
-      alert('请先登录！')
-      self.location = "/login";
+      self.location = "/";
       }
     style.
       span.headLeft {
@@ -41,7 +40,7 @@ html(lang='en')
           a.dropdown-toggle(title='', href='#', data-toggle='dropdown', data-target='#profile-messages')
             i.icon.icon-user
             |   
-            span.text.username
+            span.text.username #{username}
             b.caret
           |       
           ul.dropdown-menu
@@ -55,6 +54,7 @@ html(lang='en')
             i.icon.icon-share-alt
             |  
             span.text 退出
+            
     // Sidebar
     block sidebar
     //Alternative content
