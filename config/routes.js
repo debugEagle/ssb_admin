@@ -1,7 +1,7 @@
 const Promise =require('bluebird')
 const request = Promise.promisify(require('request'))
 
-var prefix = 'http://demo.jomton.com:3000'
+var prefix = 'http://localhost:3000'
 
 var api = {
     info: prefix + '/business/info',
@@ -19,11 +19,14 @@ module.exports = function (app) {
 
     app.get('/index', info, function(req, res) {
 
-          res.render('index', {
-              username: data.value.businessName,
-              role: data.value.role,
-          })
-
+        if (data.code == 0) {
+              res.render('index', {
+                  username: data.value.businessName,
+                  role: data.value.role,
+              })
+        } else {
+              res.render('index', {})
+        }
 
     })
 
