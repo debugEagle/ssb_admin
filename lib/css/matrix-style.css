@@ -53,13 +53,13 @@ hr{ border-top-color:#dadada;}
 	z-index: -9;
 }
 #header h1 {
-	background: url("../img/logo.png") no-repeat scroll 0 0 transparent;
-	height: 41px;
+	background: url("../img/logo_head.png") no-repeat scroll 0 0 transparent;
+	height: 31px;
 	left: 20px;
 	line-height: 600px;
 	overflow: hidden;
 	position: relative;
-	top: 16px;
+	top: 26px;
 	width: 191px;
 }
 #header h1 a {

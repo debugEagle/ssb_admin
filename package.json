@@ -17,7 +17,8 @@
     "request": "^2.75.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --harmony_destructuring ./bin/www ",
+    "start": "pm2 start ./bin/frontend.json"
   },
   "author": "xiaowu",
   "license": "ISC"

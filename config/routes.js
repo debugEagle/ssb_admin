@@ -1,5 +1,8 @@
+'use strict'
+
 const Promise =require('bluebird')
 const request = Promise.promisify(require('request'))
+var data
 
 var prefix = 'https://www.91buyin.com'
 
@@ -19,7 +22,7 @@ module.exports = function (app) {
 
     app.get('/index', info, function(req, res) {
 
-        if (data.code == 0) {
+        if ( data && data.code == 0) {
               res.render('index', {
                   username: data.value.businessName,
                   role: data.value.role,
