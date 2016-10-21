@@ -1,7 +1,7 @@
 const Promise =require('bluebird')
 const request = Promise.promisify(require('request'))
 
-var prefix = 'http://localhost:3000'
+var prefix = 'https://www.91buyin.com'
 
 var api = {
     info: prefix + '/business/info',
@@ -88,7 +88,14 @@ var info = function (req, res, next) {
        "authorization": "Bearer " + Cookies.tokenId,
     }
 
-    request({url:url,json:true,headers:headers}).then(function (response) {
+    const opt = {
+          url:url,
+          json:true,
+          headers:headers,
+          "rejectUnauthorized": false,
+    }
+
+    request(opt).then(function (response) {
 
         data = response.body
 
