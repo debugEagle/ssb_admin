@@ -2,7 +2,7 @@ const Promise =require('bluebird')
 const request = Promise.promisify(require('request'))
 var data
 
-var prefix = 'https://www.91buyin.com'
+var prefix = 'https://api.91buyin.com'
 
 var api = {
     info: prefix + '/business/info',
