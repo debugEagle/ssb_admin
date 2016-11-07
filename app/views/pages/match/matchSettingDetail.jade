@@ -1,0 +1,172 @@
+extend ../../layout
+
+block head
+    style.
+      span.headLeft {
+      font-size: larger;
+      position: relative;
+      left: 52%;
+      top: -48px;
+      color: white;
+      }
+      div#headerFront {
+      position: fixed;
+      }
+      td {
+      text-align: center;
+      }
+    link(rel='stylesheet', href='/css/download.css')
+    script(src='../common/js/matchSettingDetail.js')
+    script(src='../js/jquery.form.js')
+
+block sidebar
+  #sidebar
+    a.visible-phone(href='/')
+      i.icon.icon-home
+      |  主页
+    |   
+    ul
+      li
+        a(href='/paper')
+          i.icon.icon-inbox
+          |  
+          span 门票验证
+      |     
+      li
+        a(href='/orders')
+          i.icon.icon-th
+          |  
+          span 订单查询
+      |     
+      li.submenu.open
+        a(href='#')
+          i.icon.icon-list
+          |  
+          span 我的赛事
+          |  
+          span.label.label-important 1
+        |       
+        ul
+          li.active
+            a(href='/matchSettinglist') 赛事结构列表
+      if role > 9
+        li.submenu
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 俱乐部
+            |  
+            span.label.label-important 1
+          |       
+          ul
+            li
+              a(href='/addClub') 添加俱乐部   
+
+block content
+  #content
+    #content-header
+      #breadcrumb
+        a.tip-bottom(href='/', title='Go to Home')
+          i.icon-home
+          |  主页
+        |  
+        a.tip-bottom(href='/matchSettingList') 赛事结构列表
+        |  
+        a.tip-bottom(href='#') #{title}
+      h1 #{title}
+    .container-fluid
+      hr
+      |   
+      .row-fluid
+        .widget-box
+          .widget-title
+            span.icon
+              i.icon-align-justify
+            |           
+            h5 
+          |  
+          .widget-content.nopadding
+            form.form-horizontal.dailyMatchInfo(enctype="multipart/form-data")
+              .control-group
+                label.control-label 比赛结构名称 :
+                |               
+                .controls
+                  input.span5(type='text', placeholder='比赛结构名称', name='name', value='#{detail.name}')
+                  input.span5(type='hidden', placeholder='比赛结构名称', name='id', value='#{detail.matchSetting_id}')
+              .control-group
+                label.control-label 涨盲时间 :
+                |               
+                .controls
+                  input.span5(type='text', placeholder='涨盲时间', name='blindTime', value='#{detail.blindTime}')
+              .control-group
+                label.control-label 初始筹码 :
+                |               
+                .controls
+                  input.span5(type='text', placeholder='初始筹码', name='chip', value='#{detail.chip}')              
+            form.form-horizontal.settingForm(enctype="multipart/form-data")
+              .control-group
+                label.control-label 比赛结构表 :
+                |               
+                .uploader.white
+                  input.filename(type='', readonly='')
+                  input.button(type='button', name='file', value='选择文件')
+                  input(type='file', name='file')
+                .con-file.white
+                  input.subSettingTable(type='button', value='导入')
+              .widget-content.nopadding
+                table.table.table-bordered.data-table
+                  thead
+                    tr
+                      th 级别
+                      |               
+                      th 小盲
+                      |               
+                      th 大盲
+                      |               
+                      th 前注
+                  |           
+                  tbody.settingTable
+                    each item in setting
+                      tr
+                        td #{item.level}
+                        |               
+                        td #{item.sb}
+                        |               
+                        td #{item.bb}
+                        |               
+                        td #{item.ante}
+                      if item.apptext
+                        tr
+                          td(colspan='4') #{item.apptext}
+            form.form-horizontal.bonusesForm(enctype="multipart/form-data")
+              .control-group
+                label.control-label 奖金结构表 :
+                |               
+                .uploader.white
+                  input.filename(type='', readonly='')
+                  input.button(type='button', name='file', value='选择文件')
+                  input(type='file', name='file')
+                .con-file.white
+                  input.subBonusesTable(type='button', value='导入')
+              .widget-content.nopadding
+                table.table.table-bordered.data-table
+                  thead
+                    tr
+                      th 名次
+                      |               
+                      th 奖励
+                      |               
+                      th 说明
+                  |           
+                  tbody.bonusesTable
+                    each item in bonuses
+                      tr
+                        td #{item.ranking}
+                        |               
+                        td #{item.bonus}
+                        |               
+                        td #{item.remark}
+              |             
+              .form-actions
+                input.btn.btn-success.success(type='button', value='修改')
+                input.btn.btn-success.back(type='button', value='返回')       

@@ -1,0 +1,80 @@
+extend ../../layout
+
+block head
+  link(rel='stylesheet', href='css/uniform.css')
+  link(rel='stylesheet', href='css/select2.css')
+  link(rel='stylesheet', href='/css/jquery.gritter.css')
+  link(rel='stylesheet', href='/css/bootstrap-responsive.min.css')
+  //script(src='/js/select2.min.js')
+  script(src='../common/js/index.js')
+  
+block sidebar
+  #sidebar
+    a.visible-phone(href='/')
+      i.icon.icon-home
+      |  主页
+    |   
+    ul
+      li
+        a(href='/paper')
+          i.icon.icon-inbox
+          |  
+          span 门票验证
+      |     
+      li
+        a(href='/orders')
+          i.icon.icon-th
+          |  
+          span 订单查询
+      |     
+      li.submenu.open
+        a(href='#')
+          i.icon.icon-list
+          |  
+          span 我的赛事
+          |  
+          span.label.label-important 1
+        |       
+        ul
+          li.active
+            a(href='/matchSettingList') 赛事结构列表
+      if role > 9
+        li.submenu
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 俱乐部
+            |  
+            span.label.label-important 1
+          |       
+          ul
+            li
+              a(href='/addClub') 添加俱乐部
+
+
+block content
+    #content
+      #content-header
+        #breadcrumb
+          a.tip-bottom(href='/', title='Go to Home')
+            i.icon-home
+            |  主页
+          a.tip-bottom(href='/matchSettingList') 赛事结构列表
+          |   
+      // Action boxes
+      .container-fluid
+        .quick-actions_homepage
+          ul.quick-actions
+            each list in lists
+              li.bg_ly
+                a(href='/matchSettingDetail/#{list.matchSetting_id}')
+                  i.icon-th
+                  | #{list.name}
+            li.bg_lo
+              a(href='/addMatchSetting')
+                i.icon-th
+                | 新增
+        // End-Action boxes
+        hr
+    
+    

@@ -1,0 +1,118 @@
+extend ../layout
+
+block head
+    style.
+      span.headLeft {
+      font-size: larger;
+      position: relative;
+      left: 52%;
+      top: -48px;
+      color: white;
+      }
+      div#headerFront {
+      position: fixed;
+      }
+      td {
+      text-align: center;
+      }
+    script(src='common/js/addClub.js')
+
+block sidebar
+  #sidebar
+    a.visible-phone(href='/')
+      i.icon.icon-home
+      |  主页
+    |   
+    ul
+      li
+        a(href='/paper')
+          i.icon.icon-inbox
+          |  
+          span 门票验证
+      |     
+      li
+        a(href='/orders')
+          i.icon.icon-th
+          |  
+          span 订单查询
+      |     
+      li.submenu
+        a(href='#')
+          i.icon.icon-list
+          |  
+          span 我的赛事
+          |  
+          span.label.label-important 1
+        |       
+        ul
+          li
+            a(href='/matchSettingList') 比赛结构信息
+      if role > 9
+        li.submenu.open
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 俱乐部
+            |  
+            span.label.label-important 1
+          |       
+          ul
+            li.active
+              a(href='/addClub') 添加俱乐部    
+
+block content
+  #content
+    #content-header
+      #breadcrumb
+        a.tip-bottom(href='/', title='Go to Home')
+          i.icon-home
+          |  主页
+        |  
+        a.tip-bottom(href='#') #{title}
+        |  
+      h1 #{title}
+    .container-fluid
+      hr
+      |   
+      .row-fluid
+        .widget-box
+          .widget-title
+            span.icon
+              i.icon-align-justify
+            |           
+            h5 具体信息
+          |         
+          .widget-content.nopadding
+            form.form-horizontal
+              .control-group
+                label.control-label 用户名 :
+                |               
+                .controls
+                  input.span11.name(type='text', placeholder='用户名')
+              |             
+              .control-group
+                label.control-label 账号 :
+                |               
+                .controls
+                  input.span11.account(type='text', placeholder='账号')
+              |             
+              .control-group
+                label.control-label 密码 :
+                |               
+                .controls
+                  input.span11.password(type='password', placeholder='密码')
+              |             
+              .control-group
+                label.control-label 组织ID :
+                |               
+                .controls
+                  input.span11.organizationId(type='text', placeholder='组织ID')
+              |             
+              .control-group
+                label.control-label 权限等级 :
+                |               
+                .controls
+                  input.span11.role(type='text', placeholder='权限等级')
+              |             
+              .form-actions
+                button.btn.btn-success.add 新增

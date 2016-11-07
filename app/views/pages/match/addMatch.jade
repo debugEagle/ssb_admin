@@ -1,0 +1,148 @@
+extend ../../layout
+
+block head
+    style.
+      span.headLeft {
+      font-size: larger;
+      position: relative;
+      left: 52%;
+      top: -48px;
+      color: white;
+      }
+      div#headerFront {
+      position: fixed;
+      }
+      td {
+      text-align: center;
+      }
+    link(rel='stylesheet', type='text/css', media='all', href='css/daterangepicker-bs3.css')
+    link(rel='stylesheet', href='/css/download.css')
+    link(rel='stylesheet', href='/css/bootstrap-datetimepicker.min.css')
+    script(src='js/bootstrap-datetimepicker.min.js')
+    script(src='../common/js/match/addMatch.js')
+    script(src='js/jquery.form.js')
+    
+block sidebar
+  #sidebar
+    a.visible-phone(href='/')
+      i.icon.icon-home
+      |  主页
+    |   
+    ul
+      li
+        a(href='/paper')
+          i.icon.icon-inbox
+          |  
+          span 门票验证
+      |     
+      li
+        a(href='/orders')
+          i.icon.icon-th
+          |  
+          span 订单查询
+      |     
+      li.submenu.open
+        a(href='#')
+          i.icon.icon-list
+          |  
+          span 我的赛事
+          |  
+          span.label.label-important 1
+        |       
+        ul
+          li
+            a(href='/matchSettingList') 赛事结构列表
+          li.active
+            a(href='/addMatch') 发布赛事
+      if role > 9
+        li.submenu
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 俱乐部
+            |  
+            span.label.label-important 1
+          |       
+          ul
+            li
+              a(href='/addClub') 添加俱乐部   
+
+block content
+  #content
+    #content-header
+      #breadcrumb
+        a.tip-bottom(href='/', title='Go to Home')
+          i.icon-home
+          |  主页
+        |  
+        a.tip-bottom(href='#') #{title}
+        |  
+      h1 #{title}
+    .container-fluid
+      hr
+      |   
+      .row-fluid
+        .widget-box
+          .widget-title
+            span.icon
+              i.icon-align-justify
+            |           
+            h5 
+          |  
+          .widget-content.nopadding
+            form.form-horizontal.addMatch(enctype="multipart/form-data")
+              .control-group
+                label.control-label 赛事名称 :
+                |               
+                .controls
+                  input.span5(type='text', placeholder='赛事名称', name='name')
+              .control-group
+                label.control-label 日期 :
+                |               
+                .controls.start
+                  input#start(type='text', readonly='', name='startDate', placeholder='开始日期')
+                  |              
+                  input#end.end(type='text', readonly='', name='endDate', placeholder='结束日期')
+                  | 
+              .control-group
+                label.control-label 开始时间 :
+                |               
+                .controls
+                  .input-append#datetimepicker1
+                    input(data-format="hh:mm:ss", type="text", name='startTime', placeholder='开始时间')
+                    span.add-on
+                      i(data-time-icon="icon-time", data-date-icon="icon-calendar")
+              .control-group
+                label.control-label 报名截止时间 :
+                |               
+                .controls
+                  .input-append#datetimepicker2
+                    input(data-format="hh:mm:ss", type="text", name='endTime', placeholder='报名截止时间')
+                    span.add-on
+                      i(data-time-icon="icon-time", data-date-icon="icon-calendar")
+              .control-group
+                label.control-label 单价 :
+                |               
+                .controls
+                  input.span5(type='text', placeholder='单价', name='price')
+              .control-group
+                label.control-label 备注 :
+                |               
+                .controls
+                  textarea.span5  
+              .control-group
+                label.control-label 比赛结构表 :
+                |               
+                .controls
+                  select(name='matchSetting')
+                    option(value='0', selected='true') 请选择
+                    each list in lists         
+                      option(value='#{list.matchSetting_id}') #{list.name}
+                    
+              .form-actions
+                button.btn.btn-success.success(type='button') 提交审核
+                button.btn.btn-success.back(type='button') 返回
+                
+          script(type='text/javascript', src='js/moment.js')
+          script(type='text/javascript', src='js/daterangepicker.js')
+          

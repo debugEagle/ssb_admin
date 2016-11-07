@@ -6,7 +6,10 @@ const path = require('path')
 const bodyParser = require('body-parser')
 
 
-app.set('views', './views/pages')
+/* 全局访问 */
+global.Conf = require('./conf')
+
+app.set('views', './app/views/pages')
 app.set('view engine', 'jade')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))

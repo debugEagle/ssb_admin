@@ -1,0 +1,278 @@
+doctype html
+html(lang='en')
+  head
+    title Matrix Admin
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='css/bootstrap.min.css')
+    link(rel='stylesheet', href='css/bootstrap-responsive.min.css')
+    link(rel='stylesheet', href='css/matrix-style.css')
+    link(rel='stylesheet', href='css/matrix-media.css')
+    link(href='font-awesome/css/font-awesome.css', rel='stylesheet')
+  body
+    // Header-part
+    #header
+      h1
+        a(href='dashboard.html') Matrix Admin
+    // close-Header-part
+    // top-Header-menu
+    #user-nav.navbar.navbar-inverse
+      ul.nav
+        li#profile-messages.dropdown
+          a.dropdown-toggle(title='', href='#', data-toggle='dropdown', data-target='#profile-messages')
+            i.icon.icon-user
+            |   
+            span.text Welcome User
+            b.caret
+          |       
+          ul.dropdown-menu
+            li
+              a(href='#')
+                i.icon-user
+                |  My Profile
+            |         
+            li.divider
+            |         
+            li
+              a(href='#')
+                i.icon-check
+                |  My Tasks
+            |         
+            li.divider
+            |         
+            li
+              a(href='login.html')
+                i.icon-key
+                |  Log Out
+        |     
+        li#menu-messages.dropdown
+          a.dropdown-toggle(href='#', data-toggle='dropdown', data-target='#menu-messages')
+            i.icon.icon-envelope
+            |  
+            span.text Messages
+            |  
+            span.label.label-important 5
+            |  
+            b.caret
+          |       
+          ul.dropdown-menu
+            li
+              a.sAdd(title='', href='#')
+                i.icon-plus
+                |  new message
+            |         
+            li.divider
+            |         
+            li
+              a.sInbox(title='', href='#')
+                i.icon-envelope
+                |  inbox
+            |         
+            li.divider
+            |         
+            li
+              a.sOutbox(title='', href='#')
+                i.icon-arrow-up
+                |  outbox
+            |         
+            li.divider
+            |         
+            li
+              a.sTrash(title='', href='#')
+                i.icon-trash
+                |  trash
+        |     
+        li
+          a(title='', href='#')
+            i.icon.icon-cog
+            |  
+            span.text Settings
+        |     
+        li
+          a(title='', href='login.html')
+            i.icon.icon-share-alt
+            |  
+            span.text Logout
+    // start-top-serch
+    #search
+      input(type='text', placeholder='Search here...')
+      |   
+      button.tip-bottom(type='submit', title='Search')
+        i.icon-search.icon-white
+    // close-top-serch
+    // sidebar-menu
+    #sidebar
+      a.visible-phone(href='#')
+        i.icon.icon-info-sign
+        |  Error
+      |   
+      ul
+        li
+          a(href='index.html')
+            i.icon.icon-home
+            |  
+            span Dashboard
+        |     
+        li
+          a(href='charts.html')
+            i.icon.icon-signal
+            |  
+            span Charts &amp; graphs
+        |     
+        li
+          a(href='widgets.html')
+            i.icon.icon-inbox
+            |  
+            span Widgets
+        |     
+        li
+          a(href='tables.html')
+            i.icon.icon-th
+            |  
+            span Tables
+        |     
+        li
+          a(href='grid.html')
+            i.icon.icon-fullscreen
+            |  
+            span Full width
+        |     
+        li.submenu
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span Forms
+            |  
+            span.label.label-important 3
+          |       
+          ul
+            li
+              a(href='form-common.html') Basic Form
+            |         
+            li
+              a(href='form-validation.html') Form with Validation
+            |         
+            li
+              a(href='form-wizard.html') Form with Wizard
+        |     
+        li
+          a(href='buttons.html')
+            i.icon.icon-tint
+            |  
+            span Buttons &amp; icons
+        |     
+        li
+          a(href='interface.html')
+            i.icon.icon-pencil
+            |  
+            span Eelements
+        |     
+        li.submenu
+          a(href='#')
+            i.icon.icon-file
+            |  
+            span Addons
+            |  
+            span.label.label-important 5
+          |       
+          ul
+            li
+              a(href='index2.html') Dashboard2
+            |         
+            li
+              a(href='gallery.html') Gallery
+            |         
+            li
+              a(href='calendar.html') Calendar
+            |         
+            li
+              a(href='invoice.html') Invoice
+            |         
+            li
+              a(href='chat.html') Chat option
+        |     
+        li.submenu.active
+          a(href='#')
+            i.icon.icon-info-sign
+            |  
+            span Error
+            |  
+            span.label.label-important 4
+          |       
+          ul
+            li
+              a(href='error403.html') Error 403
+            |         
+            li
+              a(href='error404.html') Error 404
+            |         
+            li
+              a(href='error405.html') Error 405
+            |         
+            li
+              a(href='error500.html') Error 500
+        |     
+        li.content
+          span Monthly Bandwidth Transfer
+          |       
+          .progress.progress-mini.progress-danger.active.progress-striped
+            .bar(style='width: 77%;')
+          |       
+          span.percent 77%
+          |       
+          .stat 21419.94 / 14000 MB
+        |     
+        li.content
+          span Disk Space Usage
+          |       
+          .progress.progress-mini.active.progress-striped
+            .bar(style='width: 87%;')
+          |       
+          span.percent 87%
+          |       
+          .stat 604.44 / 4000 MB
+    #content
+      #content-header
+        #breadcrumb
+          a.tip-bottom(href='#', title='Go to Home')
+            i.icon-home
+            |  Home
+          |  
+          a(href='#') Sample pages
+          |  
+          a.current(href='#') Error
+        |     
+        h1 Error 404
+      |   
+      .container-fluid
+        .row-fluid
+          .span12
+            .widget-box
+              .widget-title
+                span.icon
+                  i.icon-info-sign
+                |             
+                h5 Error 404
+              |           
+              .widget-content
+                .error_ex
+                  h1 404
+                  |               
+                  h3 Opps, You&apos;re lost.
+                  |               
+                  p We can not find the page you&apos;re looking for.
+                  |               
+                  a.btn.btn-warning.btn-big(href='index.html') Back to Home
+    // Footer-part
+    .row-fluid
+      #footer.span12
+        | 2013 &copy; Matrix Admin. Brought to you by 
+        a(href='http://themedesigner.in/') Themedesigner.in
+    // end-Footer-part
+    script(src='js/jquery.min.js')
+    |  
+    script(src='js/jquery.ui.custom.js')
+    |  
+    script(src='js/bootstrap.min.js')
+    |  
+    script(src='js/maruti.html')

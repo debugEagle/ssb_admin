@@ -1,8 +1,10 @@
 const Promise =require('bluebird')
 const request = Promise.promisify(require('request'))
-var data
+const Club = require('../app/controllers/club');
+const Match = require('../app/controllers/match');
 
-var prefix = 'https://api.91buyin.com'
+
+var prefix = Conf.url
 
 var api = {
     info: prefix + '/business/info',
@@ -11,66 +13,80 @@ var api = {
 
 module.exports = function (app) {
 
-    app.get('/', function(req, res) {
+    app.get('/addClub', info, Club.addClub)
+
+    app.post('/upload', info, Match.upload)
+
+    app.get('/matchSettingList', info, Match.list, Match.matchSettingList)
+    app.get('/matchSettingDetail/:id', info, Match.detail, Match.matchSettingDetail)
+    app.get('/addMatchSetting', info, Match.addMatchSetting)
+    app.get('/addMatch', info, Match.list, Match.addMatch)
+
+
+    app.get('/login', function(req, res) {
 
         res.render('login', {
             title: ''
         })
     })
 
-    app.get('/index', info, function(req, res) {
-
+    app.get('/', info, function(req, res) {
+        const data = req.data
         if ( data && data.code == 0) {
               res.render('index', {
-                  username: data.value.businessName,
                   role: data.value.role,
               })
         } else {
-              res.render('index', {})
+            res.render('error1', {})
         }
 
     })
 
     app.get('/paper', info, function(req, res) {
-
-        if (data.code == 0) {
+        const data = req.data
+        if (req.data.code == 0) {
               res.render('paper', {
                   title: '门票验证',
-                  username: data.value.businessName,
                   role: data.value.role,
             })
         } else {
-              res.render('paper', {})
+            res.render('error1', {})
         }
     })
 
     app.get('/orders', info, function(req, res) {
-
+        const data = req.data
         if (data.code == 0) {
               res.render('orders', {
                     title: '订单查询',
-                    username: data.value.businessName,
                     role: data.value.role,
               })
         } else {
-              res.render('orders', {})
+            res.render('error1', {})
         }
 
     })
 
     app.get('/publish', info, function(req, res) {
-
+          const data = req.data
           if (data.code == 0) {
                 res.render('publish', {
                       title: '发布赛事',
-                      username: data.value.businessName,
                       role: data.value.role,
                 })
           } else {
-                res.render('publish', {})
+                res.render('error1', {})
           }
 
     })
+
+    app.get('/error', info, function(req, res) {
+        const data = req.data
+        res.render('error1', {
+          role: data.value.role,
+        })
+    })
+
 }
 
 
@@ -92,16 +108,15 @@ var info = function (req, res, next) {
     const opt = {
           url:url,
           json:true,
+          method:'post',
           headers:headers,
           "rejectUnauthorized": false,
     }
 
     request(opt).then(function (response) {
 
-        data = response.body
+        req.data = response.body
 
         next()
     })
-
-
 }

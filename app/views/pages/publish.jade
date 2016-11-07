@@ -1,0 +1,165 @@
+extend ../layout
+
+block head
+    style.
+      span.headLeft {
+      font-size: larger;
+      position: relative;
+      left: 52%;
+      top: -48px;
+      color: white;
+      }
+      div#headerFront {
+      position: fixed;
+      }
+      td {
+      text-align: center;
+      }
+    link(rel='stylesheet', href='/css/download.css')
+    script(src='common/js/publish.js')
+    script(src='js/jquery.form.js')
+
+block sidebar
+  #sidebar
+    a.visible-phone(href='/')
+      i.icon.icon-home
+      |  主页
+    |   
+    ul
+      li
+        a(href='/paper')
+          i.icon.icon-inbox
+          |  
+          span 门票验证
+      |     
+      li
+        a(href='/orders')
+          i.icon.icon-th
+          |  
+          span 订单查询
+      |     
+      li.active
+        a(href='/publish')
+          i.icon.icon-th
+          |  
+          span 发布赛事
+      if role > 9
+        li.submenu
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 俱乐部
+            |  
+            span.label.label-important 1
+          |       
+          ul
+            li
+              a(href='/addClub') 添加俱乐部   
+
+block content
+  #content
+    #content-header
+      #breadcrumb
+        a.tip-bottom(href='/', title='Go to Home')
+          i.icon-home
+          |  主页
+        |  
+        a.tip-bottom(href='#') #{title}
+        |  
+      h1 #{title}
+    .container-fluid
+      hr
+      |   
+      .row-fluid
+        .widget-box
+          .widget-title
+            span.icon
+              i.icon-align-justify
+            |           
+            h5 添加日赛系列赛
+          |  
+          .widget-content.nopadding
+            form.form-horizontal.dailyMatchInfo(enctype="multipart/form-data")
+              .control-group
+                label.control-label 赛事名称 :
+                |               
+                .controls
+                  input.span5(type='text', placeholder='赛事名称', name='name')
+              .control-group
+                label.control-label 涨盲时间 :
+                |               
+                .controls
+                  input.span5(type='text', placeholder='涨盲时间', name='blindTime')
+              .control-group
+                label.control-label 初始筹码 :
+                |               
+                .controls
+                  input.span5(type='text', placeholder='初始筹码', name='chip')
+              .control-group
+                label.control-label 比赛日期 :
+                |               
+                .controls
+                  input.span5(type='text', placeholder='', name='chip')
+              .control-group
+                label.control-label 比赛开始时间 :
+                |               
+                .controls
+                  input.span5(type='text', placeholder='', name='chip')
+              .control-group
+                label.control-label 比赛报名截止时间 :
+                |               
+                .controls
+                  input.span5(type='text', placeholder='', name='chip')
+              .control-group
+                label.control-label 比赛开始时间 :
+                |               
+                .controls
+                  input.span5(type='text', placeholder='', name='chip')
+            form.form-horizontal.serieForm(enctype="multipart/form-data")
+              .control-group
+                label.control-label 比赛结构表 :
+                |               
+                .uploader.white
+                  input.filename(type='', readonly='')
+                  input.button(type='button', name='file', value='选择文件')
+                  input(type='file', name='file')
+                .con-file.white
+                  input.subSerieTable(type='button', value='导入')
+              .widget-content.nopadding
+                table.table.table-bordered.data-table
+                  thead
+                    tr
+                      th 级别
+                      |               
+                      th 小盲
+                      |               
+                      th 大盲
+                      |               
+                      th 前注
+                  |           
+                  tbody.serieTable
+            form.form-horizontal.setForm(enctype="multipart/form-data")
+              .control-group
+                label.control-label 奖金结构表 :
+                |               
+                .uploader.white
+                  input.filename(type='', readonly='')
+                  input.button(type='button', name='file', value='选择文件')
+                  input(type='file', name='file')
+                .con-file.white
+                  input.subSetTable(type='button', value='导入')
+              .widget-content.nopadding
+                table.table.table-bordered.data-table
+                  thead
+                    tr
+                      th 名次
+                      |               
+                      th 奖励
+                      |               
+                      th 说明
+                  |           
+                  tbody.setTable
+              |             
+              .form-actions
+                input.btn.btn-success(type='button', value='保存')
+                |       
