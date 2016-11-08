@@ -5,11 +5,6 @@ html(lang='en')
     meta(charset='UTF-8') 
     include ./includes/head
     block head
-    script(type='text/javascript').
-      var tokenId = $.cookie('tokenId');
-      if (!tokenId || tokenId == 'null') {
-      self.location = "/login";
-      }
     style.
       span.headLeft {
       font-size: larger;
