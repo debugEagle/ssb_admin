@@ -1,4 +1,4 @@
-extend ../layout
+extend ../../layout
 
 block head
     style.
@@ -15,7 +15,7 @@ block head
       td {
       text-align: center;
       }
-    script(src='common/js/paper.js')
+    script(src='../common/js/casinoVip/vip.js')
 
 block sidebar
   #sidebar
@@ -24,7 +24,7 @@ block sidebar
       |  主页
     |   
     ul
-      li.active
+      li
         a(href='/paper')
           i.icon.icon-inbox
           |  
@@ -35,7 +35,8 @@ block sidebar
           i.icon.icon-th
           |  
           span 订单查询
-      li
+      |     
+      li.active
         a(href='/vip')
           i.icon.icon-th
           |  
@@ -73,53 +74,41 @@ block content
             i.icon-home
             |  主页
           |  
-          a.current(href='#') #{title}
+          a.tip-bottom(href='/vip') 会员管理
         |     
-        h1 #{title}
+        //h1 #{title}
       |   
       .container-fluid
         hr
         |   
         div
-          input.serial(type='text', style='float:left', data-provide='typeahead', placeholder='门票号')
-          input.userId(type='hidden')
+          input.cardno(type='text', style='float:left', data-provide='typeahead', placeholder='会员卡号')
           |        
-          button.btn.sub(type='button') 提交
+          button.btn.sub(type='button') 查询
         |     
         .widget-box
           .widget-title
             span.icon
               i.icon-th
             |         
-            h5 门票信息
+            h5 会员信息
           |       
           .widget-content.nopadding
             table.table.table-bordered.data-table
               thead
                 tr
-                  th 门票编号
-                  |               
-                  th 赛事名称
-                  | 
                   th 会员卡号
-                  |              
-                  th 用户名
                   |               
-                  th 手机号
+                  th 姓名
                   | 
-                  th 金额
+                  th 昵称
+                  |              
+                  th 手机号
                   |               
-                  th 状态
-                  |               
-                  th 操作
+                  th 身份证号
               |           
               tbody
                 .paper_table
                   tr.gradeA
-                    td.ticketInfo(colspan='8') 请输入门票号
-        |   
-        div
-          input.card(type='text', style='float:left', placeholder='会员卡号')
-          |        
-          button.btn.subCardno(type='button') 绑定
+                    td.ticketInfo(colspan='5') 请输入会员卡号
     

@@ -1,7 +1,8 @@
 const Promise =require('bluebird')
 const request = Promise.promisify(require('request'))
-const Club = require('../app/controllers/club');
-const Match = require('../app/controllers/match');
+const Club = require('../app/controllers/club')
+const Match = require('../app/controllers/match')
+const CasinoVip = require('../app/controllers/casinoVip')
 
 
 var prefix = Conf.url
@@ -22,6 +23,7 @@ module.exports = function (app) {
     app.get('/addMatchSetting', info, Match.addMatchSetting)
     app.get('/addMatch', info, Match.list, Match.addMatch)
 
+    app.get('/vip', info, CasinoVip.vip)
 
     app.get('/login', function(req, res) {
 
