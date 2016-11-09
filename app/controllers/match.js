@@ -111,7 +111,7 @@ exports.addMatch = function(req, res) {
     const data = req.data
 
     const lists = req.settingList.value
-    console.log(lists);
+
     if (req.data.code == 0) {
           res.render('match/addMatch', {
                 title: '发布赛事',
