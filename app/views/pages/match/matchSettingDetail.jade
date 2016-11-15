@@ -16,7 +16,7 @@ block head
       text-align: center;
       }
     link(rel='stylesheet', href='/css/download.css')
-    script(src='../common/js/matchSettingDetail.js')
+    script(src='../common/js/match/matchSettingDetail.js')
     script(src='../js/jquery.form.js')
 
 block sidebar
@@ -37,18 +37,29 @@ block sidebar
           i.icon.icon-th
           |  
           span 订单查询
-      |     
+      | 
+      li
+        a(href='/vip')
+          i.icon.icon-th
+          |  
+          span 会员管理     
       li.submenu.open
         a(href='#')
           i.icon.icon-list
           |  
           span 我的赛事
           |  
-          span.label.label-important 1
+          span.label.label-important 4
         |       
         ul
+          li
+            a(href='/addMatch') 发布赛事
+          li
+            a(href='/matchList') 赛事日历
+          li
+            a(href='/matchSerieList') 赛事系列列表
           li.active
-            a(href='/matchSettinglist') 赛事结构列表
+            a(href='/matchSettingList') 赛事结构列表
       if role > 9
         li.submenu
           a(href='#')
@@ -102,7 +113,12 @@ block content
                 label.control-label 初始筹码 :
                 |               
                 .controls
-                  input.span5(type='text', placeholder='初始筹码', name='chip', value='#{detail.chip}')              
+                  input.span5(type='text', placeholder='初始筹码', name='chip', value='#{detail.chip}')
+              .control-group
+                label.control-label 备注 :
+                |               
+                .controls
+                  textarea.span5(name='remark') #{detail.remark} 
             form.form-horizontal.settingForm(enctype="multipart/form-data")
               .control-group
                 label.control-label 比赛结构表 :
@@ -169,4 +185,5 @@ block content
               |             
               .form-actions
                 input.btn.btn-success.success(type='button', value='修改')
+                //input.btn.btn-success.del(type='button', value='删除')
                 input.btn.btn-success.back(type='button', value='返回')       

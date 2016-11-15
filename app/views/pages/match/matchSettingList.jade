@@ -26,16 +26,27 @@ block sidebar
           i.icon.icon-th
           |  
           span 订单查询
-      |     
+      |   
+      li
+        a(href='/vip')
+          i.icon.icon-th
+          |  
+          span 会员管理   
       li.submenu.open
         a(href='#')
           i.icon.icon-list
           |  
           span 我的赛事
           |  
-          span.label.label-important 1
+          span.label.label-important 4
         |       
         ul
+          li
+            a(href='/addMatch') 发布赛事
+          li
+            a(href='/matchList') 赛事日历
+          li
+            a(href='/matchSerieList') 赛事系列列表
           li.active
             a(href='/matchSettingList') 赛事结构列表
       if role > 9

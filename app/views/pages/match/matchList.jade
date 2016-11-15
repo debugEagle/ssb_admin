@@ -1,4 +1,4 @@
-extend ../layout
+extend ../../layout
 
 block head
     style.
@@ -15,7 +15,7 @@ block head
       td {
       text-align: center;
       }
-    script(src='common/js/paper.js')
+    script(src='common/js/match/matchList.js')
 
 block sidebar
   #sidebar
@@ -24,7 +24,7 @@ block sidebar
       |  主页
     |   
     ul
-      li.active
+      li
         a(href='/paper')
           i.icon.icon-inbox
           |  
@@ -40,24 +40,23 @@ block sidebar
           i.icon.icon-th
           |  
           span 会员管理
-      if role > 9
-        li.submenu
-          a(href='#')
-            i.icon.icon-list
-            |  
-            span 我的赛事
-            |  
-            span.label.label-important 4
-          |       
-          ul
-            li
-              a(href='/addMatch') 发布赛事
-            li
-              a(href='/matchList') 赛事日历
-            li
-              a(href='/matchSerieList') 赛事系列列表
-            li
-              a(href='/matchSettingList') 赛事结构列表
+      li.submenu.open
+        a(href='#')
+          i.icon.icon-list
+          |  
+          span 我的赛事
+          |  
+          span.label.label-important 4
+        |       
+        ul
+          li
+            a(href='/addMatch') 发布赛事
+          li.active
+            a(href='/matchList') 赛事日历
+          li
+            a(href='/matchSerieList') 赛事系列列表
+          li
+            a(href='/matchSettingList') 赛事结构列表
       if role > 9
         li.submenu
           a(href='#')
@@ -85,47 +84,37 @@ block content
       |   
       .container-fluid
         hr
-        |   
-        div
-          input.serial(type='text', style='float:left', data-provide='typeahead', placeholder='门票号')
-          input.userId(type='hidden')
-          |        
-          button.btn.sub(type='button') 提交
-        |     
+        |      
         .widget-box
           .widget-title
             span.icon
               i.icon-th
             |         
-            h5 门票信息
+            h5 
           |       
           .widget-content.nopadding
             table.table.table-bordered.data-table
               thead
                 tr
-                  th 门票编号
+                  th 日期
                   |               
-                  th 赛事名称
+                  th 周一
                   | 
-                  th 会员卡号
+                  th 周二
                   |              
-                  th 用户名
+                  th 周三
                   |               
-                  th 手机号
+                  th 周四
                   | 
-                  th 金额
+                  th 周五
                   |               
-                  th 状态
+                  th 周六
                   |               
-                  th 操作
+                  th 周日
               |           
-              tbody
-                .paper_table
-                  tr.gradeA
-                    td.ticketInfo(colspan='8') 请输入门票号
-        |   
-        div
-          input.card(type='text', style='float:left', placeholder='会员卡号')
-          |        
-          button.btn.subCardno(type='button') 绑定
+              tbody.thisWeek
+              
+              
+                  
+
     

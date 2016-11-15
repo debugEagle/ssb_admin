@@ -16,6 +16,9 @@ html(lang='en')
       div#headerFront {
       position: fixed;
       }
+    script.
+      if($.cookie('tokenId') == null)
+        self.location = '/login'
   body
     // Header-part
     #header

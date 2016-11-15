@@ -121,6 +121,9 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endCo
 .btn.btn-success.back {
     margin-left: 5%;
 }
+.btn.btn-success.del {
+    margin-left: 5%;
+}
 
 input#start {
     width: 15%;
@@ -129,4 +132,8 @@ input#start {
 input#end {
     width: 15%;
     margin-left: 7%;
+}
+
+input[type="checkbox"] {
+    margin-left: 1%
 }

@@ -18,10 +18,19 @@ module.exports = function (app) {
 
     app.post('/upload', info, Match.upload)
 
-    app.get('/matchSettingList', info, Match.list, Match.matchSettingList)
-    app.get('/matchSettingDetail/:id', info, Match.detail, Match.matchSettingDetail)
+    app.get('/addMatch', info,Match.settingList,Match.serieList, Match.addMatch)
+    app.get('/matchList', info, Match.matchList)
+    app.get('/matchDetail/:id', info, Match.detail, Match.matchDetail)
+
+    app.get('/addMatchSerie', info, Match.addMatchSerie)
+    app.get('/matchSerieList', info, Match.serieList, Match.matchSerieList)
+    app.get('/matchSerieDetail/:id', info, Match.serieDetail, Match.matchSerieDetail)
+
     app.get('/addMatchSetting', info, Match.addMatchSetting)
-    app.get('/addMatch', info, Match.list, Match.addMatch)
+    app.get('/matchSettingList', info, Match.settingList, Match.matchSettingList)
+    app.get('/matchSettingDetail/:id', info, Match.settingDetail, Match.matchSettingDetail)
+
+
 
     app.get('/vip', info, CasinoVip.vip)
 
@@ -39,7 +48,7 @@ module.exports = function (app) {
                   role: data.value.role,
               })
         } else {
-            res.render('error1', {})
+            res.render('login', {})
         }
 
     })
@@ -52,7 +61,7 @@ module.exports = function (app) {
                   role: data.value.role,
             })
         } else {
-            res.render('error1', {})
+            res.render('login', {})
         }
     })
 
@@ -64,7 +73,7 @@ module.exports = function (app) {
                     role: data.value.role,
               })
         } else {
-            res.render('error1', {})
+            res.render('login', {})
         }
 
     })
@@ -77,7 +86,7 @@ module.exports = function (app) {
                       role: data.value.role,
                 })
           } else {
-                res.render('error1', {})
+                res.render('login', {})
           }
 
     })

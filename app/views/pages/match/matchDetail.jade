@@ -15,12 +15,8 @@ block head
       td {
       text-align: center;
       }
-    link(rel='stylesheet', type='text/css', media='all', href='css/daterangepicker-bs3.css')
-    link(rel='stylesheet', href='/css/download.css')
-    link(rel='stylesheet', href='/css/bootstrap-datetimepicker.min.css')
-    script(src='js/bootstrap-datetimepicker.min.js')
-    script(src='../common/js/match/addMatch.js')
-    script(src='js/jquery.form.js')
+    script(src='../common/js/match/matchDetail.js')
+
     
 block sidebar
   #sidebar
@@ -105,67 +101,47 @@ block content
                 label.control-label 赛事名称 :
                 |               
                 .controls
-                  select(name='matchSerie')
-                    option(value='0', selected='true') 请选择
-                    each list in serieLists         
-                      option(value='#{list.dailyMatchSerie_id}') #{list.name}
+                  input.span5(type='text', value='#{detail.dailyMatchSerie.name}')
+                  |     
               .control-group
                 label.control-label 日期 :
                 |               
-                .controls.matchDate
-                  input(type='checkbox',name='matchDays', value='1') 
-                  | 周一        
-                  input(type='checkbox',name='matchDays', value='2') 
-                  | 周二
-                  input(type='checkbox',name='matchDays', value='3') 
-                  | 周三       
-                  input(type='checkbox',name='matchDays', value='4') 
-                  | 周四
-                  input(type='checkbox',name='matchDays', value='5') 
-                  | 周五        
-                  input(type='checkbox',name='matchDays', value='6') 
-                  | 周六
-                  input(type='checkbox',name='matchDays', value='7') 
-                  | 周日       
+                .controls
+                  input(type='text', value='#{detail.match_day}')
+                  |          
               .control-group
                 label.control-label 开始时间 :
                 |               
                 .controls
-                  .input-append#datetimepicker1
-                    input(data-format="hh:mm:ss", readonly='', type="text", name='startTime', placeholder='开始时间')
-                    span.add-on
-                      i(data-time-icon="icon-time", data-date-icon="icon-calendar")
+                  input(type='text', value='#{detail.start_time}')  
+                  |   
               .control-group
                 label.control-label 报名截止时间 :
                 |               
                 .controls
                   .input-append#datetimepicker2
-                    input(data-format="hh:mm:ss", readonly='', type="text", name='endTime', placeholder='报名截止时间')
-                    span.add-on
-                      i(data-time-icon="icon-time", data-date-icon="icon-calendar")
+                    input(type='text', value='#{detail.close_reg_time}')
+                    |  
               .control-group
                 label.control-label 单价 :
                 |               
                 .controls
-                  input.span5(type='text', placeholder='单价', name='price')
+                  input.span5(type='text', value='#{detail.unit_price}')
+                  |  
               .control-group
                 label.control-label 备注 :
                 |               
                 .controls
-                  textarea.span5(name='remark')  
+                  textarea.span5(name='remark', value='#{detail.remark}')
+                  |  
               .control-group
                 label.control-label 赛事结构表 :
                 |               
                 .controls
-                  select(name='matchSetting')
-                    option(value='0', selected='true') 请选择
-                    each list in settingLists         
-                      option(value='#{list.matchSetting_id}') #{list.name}
-                    
+                  input.span5(type='text', value='#{detail.matchSetting.name}')
+                  |  
               .form-actions
-                button.btn.btn-success.success(type='button') 提交审核
                 button.btn.btn-success.back(type='button') 返回
                 
-          script(type='text/javascript', src='js/moment.js')
-          script(type='text/javascript', src='js/daterangepicker.js')
+
           

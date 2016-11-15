@@ -7,8 +7,12 @@ const xlsxtojson = require("xlsx-to-json-lc");
 var prefix = Conf.url
 
 var api = {
-    settingList: prefix + '/business/match/settingList',
-    settingDetail: prefix + '/business/match/settingDetail',
+    list: prefix + '/business/match/list',
+    detail: prefix + '/business/match/detail',
+    serieList: prefix + '/business/match/serie/serieList',
+    serieDetail: prefix + '/business/match/serie/serieDetail',
+    settingList: prefix + '/business/match/setting/settingList',
+    settingDetail: prefix + '/business/match/setting/settingDetail',
 }
 
 
@@ -51,7 +55,105 @@ exports.upload = function(req, res) {
    })
 }
 
-// 比赛结构列表页
+// 添加赛事
+exports.addMatch = function(req, res) {
+    const data = req.data
+
+    const settingLists = req.settingList.value
+    const serieLists = req.serieList.value
+
+    if (req.data.code == 0) {
+          res.render('match/addMatch', {
+                title: '发布赛事',
+                role: data.value.role,
+                settingLists: settingLists,
+                serieLists: serieLists,
+          })
+    } else {
+          res.render('error1', {})
+    }
+}
+
+// 赛事列表
+exports.matchList = function(req, res) {
+    const data = req.data.value
+
+    if (req.data.code == 0 ) {
+          res.render('match/matchList', {
+                title: '赛事日历',
+                role: data.role,
+          })
+    } else {
+          res.render('error1', {})
+    }
+}
+
+// 赛事详情
+exports.matchDetail = function (req, res, next) {
+    const data = req.data.value
+
+    const detail = req.detail.value
+
+    if (req.data.code == 0 && req.detail.code == 0) {
+          res.render('match/matchDetail', {
+                title: '赛事系列详情',
+                role: data.role,
+                detail: detail,
+          })
+    } else {
+          res.render('error1', {})
+    }
+}
+
+// 赛事系列详情页
+exports.matchSerieDetail = function (req, res, next) {
+    const data = req.data.value
+
+    const detail = req.serieDetail.value
+
+    if (req.data.code == 0 && req.serieDetail.code == 0) {
+          res.render('match/matchDetail', {
+                title: '赛事系列详情',
+                role: data.role,
+                detail: detail,
+          })
+    } else {
+          res.render('error1', {})
+    }
+}
+
+// 添加赛事系列
+exports.addMatchSerie = function(req, res) {
+    const data = req.data
+
+    if (req.data.code == 0) {
+          res.render('match/addMatchSerie', {
+                title: '添加赛事系列表',
+                role: data.value.role,
+          })
+    } else {
+          res.render('error1', {})
+    }
+}
+
+// 赛事系列列表页
+exports.matchSerieList = function(req, res) {
+    const data = req.data.value
+
+    const lists = req.serieList.value
+
+    if (req.data.code == 0 && req.serieList.code == 0) {
+          res.render('match/matchSerieList', {
+                title: '添加俱乐部',
+                role: data.role,
+                lists: lists,
+          })
+    } else {
+          res.render('error1', {})
+    }
+}
+
+// 赛事结构列表页
 exports.matchSettingList = function(req, res) {
     const data = req.data.value
 
@@ -67,6 +169,7 @@ exports.matchSettingList = function(req, res) {
           res.render('error1', {})
     }
 }
+
 
 // 比赛结构表详情页
 exports.matchSettingDetail = function (req, res, next) {
@@ -92,6 +195,23 @@ exports.matchSettingDetail = function (req, res, next) {
     }
 }
 
+// 赛事系列详情页
+exports.matchSerieDetail = function (req, res, next) {
+    const data = req.data.value
+
+    const detail = req.serieDetail.value
+
+    if (req.data.code == 0 && req.serieDetail.code == 0) {
+          res.render('match/matchSerieDetail', {
+                title: '赛事系列详情',
+                role: data.role,
+                detail: detail,
+          })
+    } else {
+          res.render('error1', {})
+    }
+}
+
 // 添加比赛结构表页
 exports.addMatchSetting = function(req, res) {
     const data = req.data
@@ -106,25 +226,39 @@ exports.addMatchSetting = function(req, res) {
     }
 }
 
-// 添加比赛页
-exports.addMatch = function(req, res) {
-    const data = req.data
+// 获取赛事系列列表
+exports.serieList = function (req, res, next) {
+    const Cookies = {};
+    const url = api.serieList
 
-    const lists = req.settingList.value
+    req.headers.cookie && req.headers.cookie.split(';').forEach(function( Cookie ) {
+        var parts = Cookie.split('=');
+        Cookies[ parts[ 0 ].trim() ] = ( parts[ 1 ] || '' ).trim();
+    });
 
-    if (req.data.code == 0) {
-          res.render('match/addMatch', {
-                title: '发布赛事',
-                role: data.value.role,
-                lists: lists,
-          })
-    } else {
-          res.render('error1', {})
+    const headers = {
+       "Content-Type": "application/json",
+       "authorization": "Bearer " + Cookies.tokenId,
     }
+
+    const opt = {
+          url:url,
+          json:true,
+          method:'get',
+          headers:headers,
+          "rejectUnauthorized": false,
+    }
+
+    request(opt).then(function (response) {
+
+        req.serieList = response.body
+
+        next()
+    })
 }
 
 // 获取比赛结构列表
-exports.list = function (req, res, next) {
+exports.settingList = function (req, res, next) {
     const Cookies = {};
     const url = api.settingList
 
@@ -155,7 +289,41 @@ exports.list = function (req, res, next) {
 }
 
 // 获取比赛结构表详情
-exports.detail = function (req, res, next) {
+exports.serieDetail = function (req, res, next) {
+    const Cookies = {};
+    const id = req.params.id
+    const url = api.serieDetail + '?id=' + id
+
+    req.headers.cookie && req.headers.cookie.split(';').forEach(function( Cookie ) {
+        var parts = Cookie.split('=');
+        Cookies[ parts[ 0 ].trim() ] = ( parts[ 1 ] || '' ).trim();
+    });
+
+    const headers = {
+       "Content-Type": "application/json",
+       "authorization": "Bearer " + Cookies.tokenId,
+    }
+
+
+
+    const opt = {
+          url:url,
+          json:true,
+          method:'get',
+          headers:headers,
+          "rejectUnauthorized": false,
+    }
+
+    request(opt).then(function (response) {
+
+        req.serieDetail = response.body
+
+        next()
+    })
+}
+
+// 获取比赛结构表详情
+exports.settingDetail = function (req, res, next) {
     const Cookies = {};
     const id = req.params.id
     const url = api.settingDetail + '?id=' + id
@@ -186,6 +354,67 @@ exports.detail = function (req, res, next) {
 
         next()
     })
+}
+
+// 获取赛事详情
+exports.detail = function (req, res, next) {
+    const Cookies = {};
+    const id = req.params.id
+    const url = api.detail + '?id=' + id
+
+    req.headers.cookie && req.headers.cookie.split(';').forEach(function( Cookie ) {
+        var parts = Cookie.split('=');
+        Cookies[ parts[ 0 ].trim() ] = ( parts[ 1 ] || '' ).trim();
+    });
+
+    const headers = {
+       "Content-Type": "application/json",
+       "authorization": "Bearer " + Cookies.tokenId,
+    }
+
+    const opt = {
+          url:url,
+          json:true,
+          method:'get',
+          headers:headers,
+          "rejectUnauthorized": false,
+    }
+
+    request(opt).then(function (response) {
+
+        req.detail = response.body
+
+        next()
+    })
+}
+
+function getDay() {
+    var myDate = new Date()
+    var day = myDate.getDay()
+    var array = []
+
+    for (i = 0,j = 1; i < 14; i++,j++) {
+        array[i] = getthisDay(-day + j)
+    }
+
+    return array
+}
+
+function getthisDay(day) {
+    var today = new Date();
+    var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
+    today.setTime(targetday_milliseconds); //关键
+    var tyear = today.getFullYear();
+    var tMonth = today.getMonth();
+    var tDate = today.getDate();
+    if (tDate < 10) {
+        tDate = "0" + tDate;
+    }
+    tMonth = tMonth + 1;
+    if (tMonth < 10) {
+        tMonth = "0" + tMonth;
+    }
+    return tyear + "-" + tMonth + "-" + tDate + "";
 }
 
 var storage = multer.diskStorage({

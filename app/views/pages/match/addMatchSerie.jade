@@ -1,0 +1,109 @@
+extend ../../layout
+
+block head
+    style.
+      span.headLeft {
+      font-size: larger;
+      position: relative;
+      left: 52%;
+      top: -48px;
+      color: white;
+      }
+      div#headerFront {
+      position: fixed;
+      }
+      td {
+      text-align: center;
+      }
+    link(rel='stylesheet', href='/css/download.css')
+    script(src='../common/js/match/addMatchSerie.js')
+    
+block sidebar
+  #sidebar
+    a.visible-phone(href='/')
+      i.icon.icon-home
+      |  主页
+    |   
+    ul
+      li
+        a(href='/paper')
+          i.icon.icon-inbox
+          |  
+          span 门票验证
+      |     
+      li
+        a(href='/orders')
+          i.icon.icon-th
+          |  
+          span 订单查询
+      |  
+      li
+        a(href='/vip')
+          i.icon.icon-th
+          |  
+          span 会员管理    
+      li.submenu.open
+        a(href='#')
+          i.icon.icon-list
+          |  
+          span 我的赛事
+          |  
+          span.label.label-important 4
+        |       
+        ul
+          li
+            a(href='/addMatch') 发布赛事
+          li
+            a(href='/matchList') 赛事日历
+          li.active
+            a(href='/matchSerieList') 赛事系列列表
+          li
+            a(href='/matchSettingList') 赛事结构列表
+      if role > 9
+        li.submenu
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 俱乐部
+            |  
+            span.label.label-important 1
+          |       
+          ul
+            li
+              a(href='/addClub') 添加俱乐部   
+
+block content
+  #content
+    #content-header
+      #breadcrumb
+        a.tip-bottom(href='/', title='Go to Home')
+          i.icon-home
+          |  主页
+        |  
+        a.tip-bottom(href='#') #{title}
+        |  
+      h1 #{title}
+    .container-fluid
+      hr
+      |   
+      .row-fluid
+        .widget-box
+          .widget-title
+            span.icon
+              i.icon-align-justify
+            |           
+            h5 
+          |  
+          .widget-content.nopadding
+            form.form-horizontal.addMatch(enctype="multipart/form-data")
+              .control-group
+                label.control-label 赛事系列名称 :
+                |               
+                .controls
+                  input.span5.matchName(type='text', placeholder='赛事系列名称')
+              .form-actions
+                button.btn.btn-success.success(type='button') 提交审核
+                button.btn.btn-success.back(type='button') 返回
+                
+        
+          
