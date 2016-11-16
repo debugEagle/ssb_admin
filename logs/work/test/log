@@ -1,0 +1,27 @@
+[2016-11-16 13:35:19.430] [INFO] console - admin started on port 4000
+[2016-11-16 13:35:48.901] [ERROR] console - ReferenceError: detail is not defined
+    at exports.matchDetail (/Users/yangyss/Desktop/git/ssb_admin/app/controllers/match.js:101:25)
+    at Layer.handle [as handle_request] (/Users/yangyss/Desktop/git/ssb_admin/node_modules/express/lib/router/layer.js:95:5)
+    at next (/Users/yangyss/Desktop/git/ssb_admin/node_modules/express/lib/router/route.js:131:13)
+    at /Users/yangyss/Desktop/git/ssb_admin/app/controllers/match.js:387:9
+    at tryCatcher (/Users/yangyss/Desktop/git/ssb_admin/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/Users/yangyss/Desktop/git/ssb_admin/node_modules/bluebird/js/release/promise.js:510:31)
+    at Promise._settlePromise (/Users/yangyss/Desktop/git/ssb_admin/node_modules/bluebird/js/release/promise.js:567:18)
+    at Promise._settlePromise0 (/Users/yangyss/Desktop/git/ssb_admin/node_modules/bluebird/js/release/promise.js:612:10)
+    at Promise._settlePromises (/Users/yangyss/Desktop/git/ssb_admin/node_modules/bluebird/js/release/promise.js:691:18)
+    at Promise._fulfill (/Users/yangyss/Desktop/git/ssb_admin/node_modules/bluebird/js/release/promise.js:636:18)
+    at Request._callback (/Users/yangyss/Desktop/git/ssb_admin/node_modules/bluebird/js/release/nodeback.js:42:21)
+    at Request.self.callback (/Users/yangyss/Desktop/git/ssb_admin/node_modules/request/request.js:186:22)
+    at emitTwo (events.js:106:13)
+    at Request.emit (events.js:191:7)
+    at Request.<anonymous> (/Users/yangyss/Desktop/git/ssb_admin/node_modules/request/request.js:1081:10)
+    at emitOne (events.js:96:13)
+[2016-11-16 13:36:10.230] [INFO] console - admin started on port 4000
+[2016-11-16 13:37:11.655] [INFO] console - admin started on port 4000
+[2016-11-16 13:37:27.080] [INFO] console - admin started on port 4000
+[2016-11-16 13:37:32.207] [INFO] console - admin started on port 4000
+[2016-11-16 13:37:35.711] [INFO] console - admin started on port 4000
+[2016-11-16 13:59:06.508] [INFO] console - admin started on port 4000
+[2016-11-16 13:59:42.211] [INFO] console - admin started on port 4000
+[2016-11-16 13:59:54.183] [INFO] console - admin started on port 4000
+[2016-11-16 14:00:00.488] [INFO] console - admin started on port 4000
