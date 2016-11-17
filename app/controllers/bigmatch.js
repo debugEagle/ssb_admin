@@ -7,8 +7,8 @@ const xlsxtojson = require("xlsx-to-json-lc");
 var prefix = Conf.url
 
 var api = {
-    list: prefix + '/business/match/list',
-    detail: prefix + '/business/match/detail',
+    tourList: prefix + '/business/match/bigMatch/tourList',
+    tourDetail: prefix + '/business/match/detail',
     serieList: prefix + '/business/match/serie/serieList',
     serieDetail: prefix + '/business/match/serie/serieDetail',
     settingList: prefix + '/business/match/setting/settingList',
@@ -16,183 +16,176 @@ var api = {
 }
 
 
+// 巡回赛列表
+exports.bigMatchTourList = function(req, res) {
+    const lists = req.lists.value
 
-// excel导入
-exports.upload = function(req, res) {
-   var exceltojson;
-   load(req,res,function(err){
-       if(err){
-            res.json({error_code:1,err_desc:err});
-            return;
-       }
-       /** Multer gives us file info in req.file object */
-       if(!req.file){
-           res.json({error_code:1,err_desc:"No file passed"});
-           return;
-       }
-       /** Check the extension of the incoming file and
-        *  use the appropriate module
-        */
-       if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx')
-           exceltojson = xlsxtojson;
-       else
-           exceltojson = xlstojson;
-       try {
-           var userInfo = req.data
-           exceltojson({
-               input: req.file.path,
-               output: null, //since we don't need output.json
-               lowerCaseHeaders:true
-           }, function(err,data){
-               if(err)
-                   return res.json({error_code:1,err_desc:err, data: null});
-               res.json(data)
-          });
-       } catch (e) {
-         res.json({error_code:1,err_desc:"Corupted excel file"});
-
-       }
-   })
-}
-
-// 添加赛事
-exports.addMatch = function(req, res) {
-
-    const settingLists = req.settingList.value
-    const serieLists = req.serieList.value
-
-          res.render('match/addMatch', {
-                title: '发布赛事',
+          res.render('bigMatch/tourList', {
+                title: '巡回赛列表',
                 role: req.user.role,
                 username: req.user.businessName,
-                settingLists: settingLists,
-                serieLists: serieLists,
+                lists: lists,
           })
 
 }
 
-// 赛事列表
-exports.matchList = function(req, res) {
+// 巡回赛详情
+exports.bigMatchTourDetail = function(req, res) {
+    const role = req.role
+    const lists = req.lists.value
 
-          res.render('match/matchList', {
-                title: '赛事日历',
+          res.render('bigMatch/tourDetail', {
+                title: '巡回赛详情',
                 role: req.user.role,
                 username: req.user.businessName,
+                lists: lists,
           })
 
 }
 
-// 赛事详情
-exports.matchDetail = function (req, res, next) {
+// 获取巡回赛列表
+exports.tourList = function (req, res, next) {
+    const tokenId = req.cookies.tokenId
+    const url = api.tourList
 
-    const detail = req.detail.value
+    const data = Unify.http(url , '', tokenId, 'get').then((data) => {
+          req.lists = data
 
-          res.render('match/matchDetail', {
-                title: '赛事系列详情',
-                role: req.user.role,
-                username: req.user.businessName,
-                detail: detail,
-          })
+          next()
 
+    }, (err) => {
+        logger.warn(err.cause)
+    })
 }
 
-// 赛事系列详情页
-exports.matchSerieDetail = function (req, res) {
+// 获取巡回赛详情
+exports.tourDetail = function (req, res, next) {
+    const tokenId = req.cookies.tokenId
+    const url = api.tourDetail
 
-    const detail = req.serieDetail.value
+    const data = Unify.http(url , '', tokenId, 'get').then((data) => {
+          req.lists = data
 
-          res.render('match/matchDetail', {
-                title: '赛事系列详情',
-                role: req.user.role,
-                username: req.user.businessName,
-                detail: detail,
+          next()
+
+    }, (err) => {
+        logger.warn(err.cause)
+    })
+}
+
+// 获取大赛
+exports.addTour = function (req, res, next) {
+    const role = req.role
+
+          res.render('bigMatch/addTour', {
+                title: '添加巡回赛',
+                role: role,
           })
 
 }
 
 // 添加赛事系列
 exports.addMatchSerie = function(req, res) {
+    const data = req.data
 
+    if (req.data.code == 0) {
           res.render('match/addMatchSerie', {
                 title: '添加赛事系列表',
-                role: req.user.role,
-                username: req.user.businessName,
+                role: data.value.role,
           })
-
+    } else {
+          res.render('login', {})
+    }
 }
 
 // 赛事系列列表页
 exports.matchSerieList = function(req, res) {
+    const data = req.data.value
 
     const lists = req.serieList.value
 
+    if (req.data.code == 0 && req.serieList.code == 0) {
           res.render('match/matchSerieList', {
                 title: '添加俱乐部',
-                role: req.user.role,
-                username: req.user.businessName,
+                role: data.role,
                 lists: lists,
           })
-
+    } else {
+          res.render('login', {})
+    }
 }
 
 // 赛事结构列表页
 exports.matchSettingList = function(req, res) {
+    const data = req.data.value
 
     const lists = req.settingList.value
 
+    if (req.data.code == 0 && req.settingList.code == 0) {
           res.render('match/matchSettingList', {
                 title: '添加俱乐部',
-                role: req.user.role,
-                username: req.user.businessName,
+                role: data.role,
                 lists: lists,
           })
-
+    } else {
+          res.render('login', {})
+    }
 }
 
 
 // 比赛结构表详情页
-exports.matchSettingDetail = function (req, res) {
+exports.matchSettingDetail = function (req, res, next) {
+    const data = req.data.value
 
     const detail = req.settingDetail.value
+
     const setting = detail.setting ? JSON.parse(detail.setting) : ''
     const bonuses = detail.bonuses ? JSON.parse(detail.bonuses) : ''
 
-    res.cookie('setting', detail.setting, {path: '/matchSettingDetail'})
-    res.cookie('bonuses', detail.bonuses, {path: '/matchSettingDetail'})
-    res.render('match/matchSettingDetail', {
-          title: '比赛结构详情',
-          role: req.user.role,
-          username: req.user.businessName,
-          detail: detail,
-          setting: setting,
-          bonuses: bonuses,
-    })
-
+    if (req.data.code == 0 && req.settingDetail.code == 0) {
+          res.cookie('setting', detail.setting, {path: '/matchSettingDetail'})
+          res.cookie('bonuses', detail.bonuses, {path: '/matchSettingDetail'})
+          res.render('match/matchSettingDetail', {
+                title: '比赛结构详情',
+                role: data.role,
+                detail: detail,
+                setting: setting,
+                bonuses: bonuses,
+          })
+    } else {
+          res.render('login', {})
+    }
 }
 
 // 赛事系列详情页
-exports.matchSerieDetail = function (req, res) {
+exports.matchSerieDetail = function (req, res, next) {
+    const data = req.data.value
 
     const detail = req.serieDetail.value
 
+    if (req.data.code == 0 && req.serieDetail.code == 0) {
           res.render('match/matchSerieDetail', {
                 title: '赛事系列详情',
-                role: req.user.role,
-                username: req.user.businessName,
+                role: data.role,
                 detail: detail,
           })
-
+    } else {
+          res.render('login', {})
+    }
 }
 
 // 添加比赛结构表页
 exports.addMatchSetting = function(req, res) {
+    const data = req.data
 
+    if (req.data.code == 0) {
           res.render('match/addMatchSetting', {
                 title: '添加赛事结构信息',
-                role: req.user.role,
-                username: req.user.businessName,
+                role: data.value.role,
           })
-
+    } else {
+          res.render('login', {})
+    }
 }
 
 // 获取赛事系列列表
@@ -356,52 +349,3 @@ exports.detail = function (req, res, next) {
         next()
     })
 }
-
-function getDay() {
-    var myDate = new Date()
-    var day = myDate.getDay()
-    var array = []
-
-    for (i = 0,j = 1; i < 14; i++,j++) {
-        array[i] = getthisDay(-day + j)
-    }
-
-    return array
-}
-
-function getthisDay(day) {
-    var today = new Date();
-    var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
-    today.setTime(targetday_milliseconds); //关键
-    var tyear = today.getFullYear();
-    var tMonth = today.getMonth();
-    var tDate = today.getDate();
-    if (tDate < 10) {
-        tDate = "0" + tDate;
-    }
-    tMonth = tMonth + 1;
-    if (tMonth < 10) {
-        tMonth = "0" + tMonth;
-    }
-    return tyear + "-" + tMonth + "-" + tDate + "";
-}
-
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads/')
-    },
-    filename: function (req, file, cb) {
-        var datetimestamp = Date.now();
-        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
-    }
-});
-
-var load = multer({
-                storage: storage,
-                fileFilter : function(req, file, callback) {
-                    if (['xls', 'xlsx'].indexOf(file.originalname.split('.')[file.originalname.split('.').length-1]) === -1) {
-                        return callback(new Error('错误的文件类型'));
-                    }
-                    callback(null, true);
-                }
-            }).single('file');

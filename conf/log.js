@@ -25,6 +25,6 @@ module.exports = {
             filename: `${prepare(path_work)}/log`,
             pattern: "-yyyy-MM-dd"
         }],
-        replaceConsole: true
+        //replaceConsole: true
     }
 }

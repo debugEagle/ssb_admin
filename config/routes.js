@@ -1,8 +1,12 @@
+'use strict'
+
 const Promise =require('bluebird')
 const request = Promise.promisify(require('request'))
 const Club = require('../app/controllers/club')
 const Match = require('../app/controllers/match')
+const BigMatch = require('../app/controllers/bigMatch')
 const CasinoVip = require('../app/controllers/casinoVip')
+const logger = log4js.getLogger('[routes-info]')
 
 
 var prefix = Conf.url
@@ -14,25 +18,49 @@ var api = {
 
 module.exports = function (app) {
 
-    app.get('/addClub', info, Club.addClub)
+    app.use((req, res, next) => {
+        const tokenId = req.cookies.tokenId
+        const url = api.info
 
-    app.post('/upload', info, Match.upload)
+        const data = Unify.http(url , '', tokenId, 'post').then((data) => {
+              if (data.code == 0) {
+                  req.user = data.value
+              } else {
+                  res.render('login', {})
+              }
 
-    app.get('/addMatch', info,Match.settingList,Match.serieList, Match.addMatch)
-    app.get('/matchList', info, Match.matchList)
-    app.get('/matchDetail/:id', info, Match.detail, Match.matchDetail)
+              next()
 
-    app.get('/addMatchSerie', info, Match.addMatchSerie)
-    app.get('/matchSerieList', info, Match.serieList, Match.matchSerieList)
-    app.get('/matchSerieDetail/:id', info, Match.serieDetail, Match.matchSerieDetail)
+        }, (err) => {
+            logger.warn(err.cause)
+        })
+    })
 
-    app.get('/addMatchSetting', info, Match.addMatchSetting)
-    app.get('/matchSettingList', info, Match.settingList, Match.matchSettingList)
-    app.get('/matchSettingDetail/:id', info, Match.settingDetail, Match.matchSettingDetail)
+    app.get('/addClub', Club.addClub)
 
+    app.post('/upload', Match.upload)
 
+    //日赛
+    app.get('/addMatch', Match.settingList,Match.serieList, Match.addMatch)
+    app.get('/matchList', Match.matchList)
+    app.get('/matchDetail/:id', Match.detail, Match.matchDetail)
 
-    app.get('/vip', info, CasinoVip.vip)
+    //日赛系列
+    app.get('/addMatchSerie', Match.addMatchSerie)
+    app.get('/matchSerieList', Match.serieList, Match.matchSerieList)
+    app.get('/matchSerieDetail/:id', Match.serieDetail, Match.matchSerieDetail)
+
+    //赛事结构
+    app.get('/addMatchSetting', Match.addMatchSetting)
+    app.get('/matchSettingList', Match.settingList, Match.matchSettingList)
+    app.get('/matchSettingDetail/:id', Match.settingDetail, Match.matchSettingDetail)
+
+    //大赛
+    app.get('/addTour', BigMatch.addTour)
+    app.get('/bigMatchTourList', BigMatch.tourList, BigMatch.bigMatchTourList)
+    app.get('/bigMatchTourDetail', BigMatch.tourDetail, BigMatch.bigMatchTourDetail)
+
+    app.get('/vip', CasinoVip.vip)
 
     app.get('/login', function(req, res) {
 
@@ -41,93 +69,54 @@ module.exports = function (app) {
         })
     })
 
-    app.get('/', info, function(req, res) {
-        const data = req.data
-        if ( data && data.code == 0) {
+    app.get('/', function(req, res) {
+
               res.render('index', {
-                  role: data.value.role,
+                  role: req.user.role,
+                  username: req.user.businessName
               })
-        } else {
-            res.render('login', {})
-        }
+
 
     })
 
-    app.get('/paper', info, function(req, res) {
-        const data = req.data
-        if (req.data.code == 0) {
+    app.get('/paper', function(req, res) {
+
               res.render('paper', {
                   title: '门票验证',
-                  role: data.value.role,
+                  role: req.user.role,
+                  username: req.user.businessName
             })
-        } else {
-            res.render('login', {})
-        }
+
     })
 
-    app.get('/orders', info, function(req, res) {
-        const data = req.data
-        if (data.code == 0) {
+    app.get('/orders', function(req, res) {
+
               res.render('orders', {
                     title: '订单查询',
-                    role: data.value.role,
+                    role: req.user.role,
+                    username: req.user.businessName
               })
-        } else {
-            res.render('login', {})
-        }
+
 
     })
 
-    app.get('/publish', info, function(req, res) {
-          const data = req.data
-          if (data.code == 0) {
+    app.get('/publish', function(req, res) {
+
                 res.render('publish', {
                       title: '发布赛事',
-                      role: data.value.role,
+                      role: req.user.role,
+                      username: req.user.businessName
                 })
-          } else {
-                res.render('login', {})
-          }
+
 
     })
 
-    app.get('/error', info, function(req, res) {
-        const data = req.data
+    app.get('/error', function(req, res) {
+
         res.render('error1', {
-          role: data.value.role,
+            role: req.user.role,
+            username: req.user.businessName
         })
     })
 
-}
-
-
-// 获取用户信息
-var info = function (req, res, next) {
-    const Cookies = {};
-    const url = api.info
-
-    req.headers.cookie && req.headers.cookie.split(';').forEach(function( Cookie ) {
-        var parts = Cookie.split('=');
-        Cookies[ parts[ 0 ].trim() ] = ( parts[ 1 ] || '' ).trim();
-    });
-
-    const headers = {
-       "Content-Type": "application/json",
-       "authorization": "Bearer " + Cookies.tokenId,
-    }
-
-    const opt = {
-          url:url,
-          json:true,
-          method:'post',
-          headers:headers,
-          "rejectUnauthorized": false,
-    }
-
-    request(opt).then(function (response) {
-
-        req.data = response.body
-
-        next()
-    })
 }

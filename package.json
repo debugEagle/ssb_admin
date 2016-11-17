@@ -4,7 +4,12 @@
   "description": "赛事宝后台系统",
   "main": "app.js",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
+    "grunt": "^1.0.1",
+    "grunt-concurrent": "^2.3.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-nodemon": "^0.4.2",
     "html2jade": "^0.8.5",
     "jade": "^1.11.0",
     "log4js": "^1.0.1",
