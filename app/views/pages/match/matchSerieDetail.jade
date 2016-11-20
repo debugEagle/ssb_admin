@@ -26,41 +26,42 @@ block sidebar
       |  主页
     |   
     ul
-      li
-        a(href='/paper')
-          i.icon.icon-inbox
-          |  
-          span 门票验证
-      |     
-      li
-        a(href='/orders')
-          i.icon.icon-th
-          |  
-          span 订单查询
-      | 
-      li
-        a(href='/vip')
-          i.icon.icon-th
-          |  
-          span 会员管理     
-      li.submenu.open
-        a(href='#')
-          i.icon.icon-list
-          |  
-          span 我的赛事
-          |  
-          span.label.label-important 4
-        |       
-        ul
-          li
-            a(href='/addMatch') 发布赛事
-          li
-            a(href='/matchList') 赛事日历
-          li.active
-            a(href='/matchSerieList') 赛事系列列表
-          li
-            a(href='/matchSettingList') 赛事结构列表
-      if role > 9
+      if role === 1
+        li
+          a(href='/paper')
+            i.icon.icon-inbox
+            |  
+            span 门票验证
+        |     
+        li
+          a(href='/orders')
+            i.icon.icon-th
+            |  
+            span 订单查询
+        | 
+        li
+          a(href='/vip')
+            i.icon.icon-th
+            |  
+            span 会员管理
+      if role > 9     
+        li.submenu.open
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 我的赛事
+            |  
+            span.label.label-important 4
+          |       
+          ul
+            li
+              a(href='/addMatch') 发布赛事
+            li
+              a(href='/matchList') 赛事日历
+            li.active
+              a(href='/matchSerieList') 赛事系列列表
+            li
+              a(href='/matchSettingList') 赛事结构列表
         li.submenu
           a(href='#')
             i.icon.icon-list

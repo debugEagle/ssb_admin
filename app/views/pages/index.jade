@@ -14,22 +14,23 @@ block sidebar
       |  主页
     |   
     ul
-      li
-        a(href='/paper')
-          i.icon.icon-inbox
-          |  
-          span 门票验证
-      |     
-      li
-        a(href='/orders')
-          i.icon.icon-th
-          |  
-          span 订单查询
-      li
-        a(href='/vip')
-          i.icon.icon-th
-          |  
-          span 会员管理
+      if role === 1
+        li
+          a(href='/paper')
+            i.icon.icon-inbox
+            |  
+            span 门票验证
+        |     
+        li
+          a(href='/orders')
+            i.icon.icon-th
+            |  
+            span 订单查询
+        li
+          a(href='/vip')
+            i.icon.icon-th
+            |  
+            span 会员管理
       if role > 9
         li.submenu
           a(href='#')
