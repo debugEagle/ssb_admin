@@ -157,8 +157,8 @@ exports.matchSettingDetail = function (req, res) {
     const setting = detail.setting ? JSON.parse(detail.setting) : ''
     const bonuses = detail.bonuses ? JSON.parse(detail.bonuses) : ''
 
-    res.cookie('setting', detail.setting, {path: '/matchSettingDetail'})
-    res.cookie('bonuses', detail.bonuses, {path: '/matchSettingDetail'})
+    res.setHeader('Set-Cookie', ['setting='+ setting, 'bonuses=' + bonuses])
+    
     res.render('match/matchSettingDetail', {
           title: '比赛结构详情',
           role: req.user.role,
