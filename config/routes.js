@@ -4,8 +4,10 @@ const Promise =require('bluebird')
 const request = Promise.promisify(require('request'))
 const Club = require('../app/controllers/club')
 const Match = require('../app/controllers/match')
+const DailyMatch = require('../app/controllers/DailyMatch')
 const BigMatch = require('../app/controllers/bigMatch')
 const CasinoVip = require('../app/controllers/casinoVip')
+const ChooseClub = require('../app/controllers/chooseClub')
 const logger = log4js.getLogger('[routes-info]')
 
 
@@ -22,7 +24,7 @@ module.exports = function (app) {
         const tokenId = req.cookies.tokenId
         const url = api.info
 
-        const data = Unify.http(url , '', tokenId, 'post').then((data) => {
+        const data = Unify.http.get(url , '', tokenId).then((data) => {
               if (data.code == 0) {
                   req.user = data.value
               } else {
@@ -60,6 +62,14 @@ module.exports = function (app) {
     app.get('/bigMatchTourList', BigMatch.tourList, BigMatch.bigMatchTourList)
     app.get('/bigMatchTourDetail', BigMatch.tourDetail, BigMatch.bigMatchTourDetail)
 
+    //选择俱乐部
+    app.get('/chooseClub', ChooseClub.chooseClub)
+
+    //日赛结果
+    app.get('/dailyMatchResult', DailyMatch.result)
+    app.get('/addResult', DailyMatch.addResult)
+    app.get('/resultDetail', DailyMatch.getResult, DailyMatch.resultDetail)
+
     app.get('/vip', CasinoVip.vip)
 
     app.get('/login', function(req, res) {
@@ -71,42 +81,40 @@ module.exports = function (app) {
 
     app.get('/', function(req, res) {
 
-              res.render('index', {
-                  role: req.user.role,
-                  username: req.user.businessName
-              })
-
-
+        res.render('index', {
+            role: req.user.role,
+            username: req.user.businessName
+        })
     })
 
     app.get('/paper', function(req, res) {
 
-              res.render('paper', {
-                  title: '门票验证',
-                  role: req.user.role,
-                  username: req.user.businessName
-            })
+        res.render('paper', {
+            title: '门票验证',
+            role: req.user.role,
+            username: req.user.businessName
+        })
 
     })
 
     app.get('/orders', function(req, res) {
 
-              res.render('orders', {
-                    title: '订单查询',
-                    role: req.user.role,
-                    username: req.user.businessName
-              })
+        res.render('orders', {
+              title: '订单查询',
+              role: req.user.role,
+              username: req.user.businessName
+        })
 
 
     })
 
     app.get('/publish', function(req, res) {
 
-                res.render('publish', {
-                      title: '发布赛事',
-                      role: req.user.role,
-                      username: req.user.businessName
-                })
+          res.render('publish', {
+                title: '发布赛事',
+                role: req.user.role,
+                username: req.user.businessName
+          })
 
 
     })

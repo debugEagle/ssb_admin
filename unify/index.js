@@ -5,7 +5,48 @@ var request = Promise.promisify(require('request'))
 
 const unify = {}
 
-unify.http = (url, data, tokenId, method) => {
+unify.http = {}
+
+unify.http.get = (url, params, tokenId) => {
+
+      const headers = {
+         "Content-Type": "application/json",
+         "authorization": "Bearer " + tokenId,
+      }
+
+      if (params) {
+        let paramsArray = [];
+        Object.keys(params).forEach(key => paramsArray.push(key + '=' + params[key]))
+        if (url.search(/\?/) === -1) {
+          url += '?' + paramsArray.join('&')
+        } else {
+          url += '&' + paramsArray.join('&')
+        }
+      }
+
+      const opts = {
+            url: encodeURI(url),
+            method: 'GET',
+            json: true,
+            headers: headers,
+            "rejectUnauthorized": false,
+      }
+
+
+      return new Promise((resolve,reject) => {
+          request(opts).then((response) => {
+              var data = response.body
+
+              resolve(data)
+          })
+          .catch((err) => {
+              reject(err)
+          })
+      })
+
+}
+
+unify.http.post = (url, data, tokenId) => {
 
       const headers = {
          "Content-Type": "application/json",
@@ -13,12 +54,14 @@ unify.http = (url, data, tokenId, method) => {
       }
 
       const opts = {
-            url: url,
+            url: encodeURI(url),
+            method: 'POST',
             json: true,
-            method: method,
+            body: JSON.stringify(data),
             headers: headers,
             "rejectUnauthorized": false,
       }
+
 
       return new Promise((resolve,reject) => {
           request(opts).then((response) => {

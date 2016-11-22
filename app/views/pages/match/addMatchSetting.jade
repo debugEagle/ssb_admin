@@ -49,19 +49,24 @@ block sidebar
           a(href='#')
             i.icon.icon-list
             |  
-            span 我的赛事
+            span 日赛
             |  
             span.label.label-important 4
           |       
           ul
             li
-              a(href='/addMatch') 发布赛事
+              a(href='/chooseclub?id=1') 发布日赛
             li
-              a(href='/matchList') 赛事日历
+              a(href='/chooseclub?id=2') 日赛日历
             li
-              a(href='/matchSerieList') 赛事系列列表
-            li.active
-              a(href='/matchSettingList') 赛事结构列表
+              a(href='/dailyMatchResult') 发布日赛结果
+            li
+              a(href='/chooseclub?id=3') 日赛系列列表
+        li
+          a(href='/chooseclub?id=4')
+            i.icon.icon-th
+            |  
+            span 赛事结构列表
         li.submenu
           a(href='#')
             i.icon.icon-list

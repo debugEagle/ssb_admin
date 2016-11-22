@@ -16,8 +16,9 @@ block head
       text-align: center;
       }
     link(rel='stylesheet', href='/css/download.css')
-    script(src='../common/js/match/addMatchSerie.js')
-    
+    script(src='../common/js/dailyMatch/resultDetail.js')
+    script(src='js/jquery.form.js')
+
 block sidebar
   #sidebar
     a.visible-phone(href='/')
@@ -25,7 +26,7 @@ block sidebar
       |  主页
     |   
     ul
-      if role === 1 
+      if role === 1
         li
           a(href='/paper')
             i.icon.icon-inbox
@@ -37,13 +38,13 @@ block sidebar
             i.icon.icon-th
             |  
             span 订单查询
-        |  
+        |     
         li
           a(href='/vip')
             i.icon.icon-th
             |  
-            span 会员管理  
-      if role > 9  
+            span 会员管理 
+      if role > 9
         li.submenu.open
           a(href='#')
             i.icon.icon-list
@@ -57,7 +58,7 @@ block sidebar
               a(href='/chooseclub?id=1') 发布日赛
             li
               a(href='/chooseclub?id=2') 日赛日历
-            li
+            li.active
               a(href='/dailyMatchResult') 发布日赛结果
             li
               a(href='/chooseclub?id=3') 日赛系列列表
@@ -86,6 +87,8 @@ block content
           i.icon-home
           |  主页
         |  
+        a.tip-bottom(href='/matchSettingList') 日赛结果
+        | 
         a.tip-bottom(href='#') #{title}
         |  
       h1 #{title}
@@ -98,18 +101,44 @@ block content
             span.icon
               i.icon-align-justify
             |           
-            h5 
+            h5 日赛结果详情
           |  
           .widget-content.nopadding
-            form.form-horizontal.addMatch(enctype="multipart/form-data")
+            form.form-horizontal.dailyMatchInfo(enctype="multipart/form-data")
               .control-group
-                label.control-label 赛事系列名称 :
+                label.control-label 日赛结果名称 :
                 |               
                 .controls
-                  input.span5.matchName(type='text', placeholder='赛事系列名称')
+                  input.span5(type='text', placeholder='日赛结果名称', name='name', value='#{detail.name}') 
+            form.form-horizontal.resultForm(enctype="multipart/form-data")
+              .control-group
+                label.control-label 日赛结果 :
+                |               
+                .uploader.white
+                  input.filename(type='', readonly='')
+                  input.button(type='button', name='file', value='选择文件') 
+                  input(type='file', name='file')
+                .con-file.white
+                  input.subResultTable(type='button', value='导入')
+              .widget-content.nopadding
+                table.table.table-bordered.data-table
+                  thead
+                    tr
+                      th 名次
+                      |               
+                      th 姓名
+                      |               
+                      th 奖金
+                  |           
+                  tbody.resultTable
+                    each item in result
+                      tr
+                        td #{item.rank}
+                        |               
+                        td #{item.name}
+                        |               
+                        td #{item.bonus}
+              |             
               .form-actions
-                button.btn.btn-success.success(type='button') 提交审核
-                button.btn.btn-success.back(type='button') 返回
-                
-        
-          
+                //input.btn.btn-success.success(type='button', value='修改')
+                input.btn.btn-success.back(type='button', value='返回')

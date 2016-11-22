@@ -1,8 +1,9 @@
-const multer = require('multer');
+const multer = require('multer')
 const Promise =require('bluebird')
 const request = Promise.promisify(require('request'))
-const xlstojson = require("xls-to-json-lc");
-const xlsxtojson = require("xlsx-to-json-lc");
+const xlstojson = require("xls-to-json-lc")
+const xlsxtojson = require("xlsx-to-json-lc")
+const Http = Unify.http
 
 var prefix = Conf.url
 
@@ -58,27 +59,27 @@ exports.upload = function(req, res) {
 // 添加赛事
 exports.addMatch = function(req, res) {
 
-    const settingLists = req.settingList.value
-    const serieLists = req.serieList.value
+    const settingLists = req.settingList
+    const serieLists = req.serieList
 
-          res.render('match/addMatch', {
-                title: '发布赛事',
-                role: req.user.role,
-                username: req.user.businessName,
-                settingLists: settingLists,
-                serieLists: serieLists,
-          })
+    res.render('match/addMatch', {
+          title: '发布赛事',
+          role: req.user.role,
+          username: req.user.businessName,
+          settingLists: settingLists,
+          serieLists: serieLists,
+    })
 
 }
 
 // 赛事列表
 exports.matchList = function(req, res) {
 
-          res.render('match/matchList', {
-                title: '赛事日历',
-                role: req.user.role,
-                username: req.user.businessName,
-          })
+    res.render('match/matchList', {
+          title: '赛事日历',
+          role: req.user.role,
+          username: req.user.businessName,
+    })
 
 }
 
@@ -99,53 +100,53 @@ exports.matchDetail = function (req, res, next) {
 // 赛事系列详情页
 exports.matchSerieDetail = function (req, res) {
 
-    const detail = req.serieDetail.value
+      const detail = req.serieDetail.value
 
-          res.render('match/matchDetail', {
-                title: '赛事系列详情',
-                role: req.user.role,
-                username: req.user.businessName,
-                detail: detail,
-          })
+      res.render('match/matchDetail', {
+            title: '赛事系列详情',
+            role: req.user.role,
+            username: req.user.businessName,
+            detail: detail,
+      })
 
 }
 
 // 添加赛事系列
 exports.addMatchSerie = function(req, res) {
 
-          res.render('match/addMatchSerie', {
-                title: '添加赛事系列表',
-                role: req.user.role,
-                username: req.user.businessName,
-          })
+      res.render('match/addMatchSerie', {
+            title: '添加赛事系列表',
+            role: req.user.role,
+            username: req.user.businessName,
+      })
 
 }
 
 // 赛事系列列表页
 exports.matchSerieList = function(req, res) {
 
-    const lists = req.serieList.value
+    const lists = req.serieList
 
-          res.render('match/matchSerieList', {
-                title: '添加俱乐部',
-                role: req.user.role,
-                username: req.user.businessName,
-                lists: lists,
-          })
+    res.render('match/matchSerieList', {
+          title: '添加俱乐部',
+          role: req.user.role,
+          username: req.user.businessName,
+          lists: lists,
+    })
 
 }
 
 // 赛事结构列表页
 exports.matchSettingList = function(req, res) {
 
-    const lists = req.settingList.value
+    const lists = req.settingList
 
-          res.render('match/matchSettingList', {
-                title: '添加俱乐部',
-                role: req.user.role,
-                username: req.user.businessName,
-                lists: lists,
-          })
+    res.render('match/matchSettingList', {
+          title: '添加俱乐部',
+          role: req.user.role,
+          username: req.user.businessName,
+          lists: lists,
+    })
 
 }
 
@@ -157,8 +158,6 @@ exports.matchSettingDetail = function (req, res) {
     const setting = detail.setting ? JSON.parse(detail.setting) : ''
     const bonuses = detail.bonuses ? JSON.parse(detail.bonuses) : ''
 
-    res.setHeader('Set-Cookie', ['setting='+ setting, 'bonuses=' + bonuses])
-    
     res.render('match/matchSettingDetail', {
           title: '比赛结构详情',
           role: req.user.role,
@@ -175,86 +174,68 @@ exports.matchSerieDetail = function (req, res) {
 
     const detail = req.serieDetail.value
 
-          res.render('match/matchSerieDetail', {
-                title: '赛事系列详情',
-                role: req.user.role,
-                username: req.user.businessName,
-                detail: detail,
-          })
+    res.render('match/matchSerieDetail', {
+          title: '赛事系列详情',
+          role: req.user.role,
+          username: req.user.businessName,
+          detail: detail,
+    })
 
 }
 
 // 添加比赛结构表页
 exports.addMatchSetting = function(req, res) {
 
-          res.render('match/addMatchSetting', {
-                title: '添加赛事结构信息',
-                role: req.user.role,
-                username: req.user.businessName,
-          })
+    res.render('match/addMatchSetting', {
+          title: '添加赛事结构信息',
+          role: req.user.role,
+          username: req.user.businessName,
+    })
 
 }
 
 // 获取赛事系列列表
 exports.serieList = function (req, res, next) {
-    const Cookies = {};
+
+    const tokenId = req.cookies.tokenId
     const url = api.serieList
+    const data = {id : req.query.id}
 
-    req.headers.cookie && req.headers.cookie.split(';').forEach(function( Cookie ) {
-        var parts = Cookie.split('=');
-        Cookies[ parts[ 0 ].trim() ] = ( parts[ 1 ] || '' ).trim();
-    });
+    Http.get(url , data, tokenId).then((data) => {
+          if (data.code == 0) {
+              req.serieList = data.value
+          } else {
+              res.render('login', {})
+          }
 
-    const headers = {
-       "Content-Type": "application/json",
-       "authorization": "Bearer " + Cookies.tokenId,
-    }
+          next()
 
-    const opt = {
-          url:url,
-          json:true,
-          method:'get',
-          headers:headers,
-          "rejectUnauthorized": false,
-    }
-
-    request(opt).then(function (response) {
-
-        req.serieList = response.body
-
-        next()
+    }, (err) => {
+        logger.warn(err.cause)
     })
+
 }
 
 // 获取比赛结构列表
 exports.settingList = function (req, res, next) {
-    const Cookies = {};
+
+    const tokenId = req.cookies.tokenId
     const url = api.settingList
+    const data = {id : req.query.id}
 
-    req.headers.cookie && req.headers.cookie.split(';').forEach(function( Cookie ) {
-        var parts = Cookie.split('=');
-        Cookies[ parts[ 0 ].trim() ] = ( parts[ 1 ] || '' ).trim();
-    });
+    Http.get(url , data, tokenId).then((data) => {
+          if (data.code == 0) {
+              req.settingList = data.value
+          } else {
+              res.render('login', {})
+          }
 
-    const headers = {
-       "Content-Type": "application/json",
-       "authorization": "Bearer " + Cookies.tokenId,
-    }
+          next()
 
-    const opt = {
-          url:url,
-          json:true,
-          method:'get',
-          headers:headers,
-          "rejectUnauthorized": false,
-    }
-
-    request(opt).then(function (response) {
-
-        req.settingList = response.body
-
-        next()
+    }, (err) => {
+        logger.warn(err.cause)
     })
+
 }
 
 // 获取比赛结构表详情

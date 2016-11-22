@@ -1,10 +1,10 @@
-extend ../layout
+extend ../../layout
 
 block head
   link(rel='stylesheet', href='css/uniform.css')
   link(rel='stylesheet', href='css/select2.css')
   link(rel='stylesheet', href='common/css/orders.css')
-  script(src='common/js/orders.js')
+  script(src='../common/js/dailyMatch/result.js')
   link(rel='stylesheet', type='text/css', media='all', href='css/daterangepicker-bs3.css')
   style.
     td {
@@ -25,7 +25,7 @@ block sidebar
             |  
             span 门票验证
         |     
-        li.active
+        li
           a(href='/orders')
             i.icon.icon-th
             |  
@@ -36,7 +36,7 @@ block sidebar
             |  
             span 会员管理
       if role > 9
-        li.submenu
+        li.submenu.open
           a(href='#')
             i.icon.icon-list
             |  
@@ -46,14 +46,18 @@ block sidebar
           |       
           ul
             li
-              a(href='/addMatch') 发布赛事
+              a(href='/chooseclub?id=1') 发布日赛
             li
-              a(href='/matchList') 赛事日历
+              a(href='/chooseclub?id=2') 日赛日历
+            li.active
+              a(href='/dailyMatchResult') 发布日赛结果
             li
-              a(href='/matchSerieList') 赛事系列列表
-            li
-              a(href='/matchSettingList') 赛事结构列表
-      if role > 9
+              a(href='/chooseclub?id=3') 日赛系列列表
+        li
+          a(href='/chooseclub?id=4')
+            i.icon.icon-th
+            |  
+            span 赛事结构列表
         li.submenu
           a(href='#')
             i.icon.icon-list
@@ -86,9 +90,14 @@ block content
             <form class="form-horizontal">
             <fieldset>
           .start
-            input#start(type='text', readonly='', name='start', placeholder='开始时间')
-            |                
-            input#end.end(type='text', readonly='', name='end', placeholder='结束时间')
+            select(name='club')
+              option(value='0', selected='true') 请选择
+              option(value='22') 跑跑俱乐部
+              option(value='75') e+俱乐部
+              option(value='0') 扑克联盟俱乐部
+              option(value='26') 京扑克俱乐部
+              option(value='0') 熊猫俱乐部                
+            input#end.end(type='text', readonly='', name='matchDay', placeholder='日期')
             |                
             button.btn.query(type='button') 查询
           //
@@ -100,50 +109,24 @@ block content
             span.icon
               i.icon-th
             |         
-            span.info_status 订单状态
+            span.info_status 日赛结果列表
             |         
-            select
-              option(value='', selected='true') 全部
-              |           
-              option(value='0') 未结算
-              |     
-              option(value='1') 已结算
-            |         
-            span.info_label 总额：0元
           |       
           .widget-content.nopadding
             table.table.table-bordered.table-striped
               thead
                 tr
-                  th 序号
+                  th ID
                   |               
                   th 赛事名称
                   |               
-                  th 订单编号
+                  th 已录入
                   |               
-                  th 用户名
-                  |               
-                  th 手机号
-                  |               
-                  th 单价
-                  |               
-                  th 时间
-                  |               
-                  th 是否结算
+                  th 详情
               |           
-              tbody.orders_table
+              tbody.result_table
                 tr
-                  td.orderInfo(colspan='9') 暂无数据
-        |     
-        #DataTables_Table_0_paginate.dataTables_paginate.fg-buttonset.ui-buttonset.fg-buttonset-multi.ui-buttonset-multi.paging_full_numbers
-          a#DataTables_Table_0_first.first.ui-corner-tl.ui-corner-bl.fg-button.ui-button.ui-state-default(tabindex='0') 首页
-          |         
-          a#DataTables_Table_0_previous.previous.fg-button.ui-button.ui-state-default(tabindex='0') 上一页
-          |         
-          a#DataTables_Table_0_next.next.fg-button.ui-button.ui-state-default(tabindex='0') 下一页
-          |         
-          a#DataTables_Table_0_last.last.ui-corner-tr.ui-corner-br.fg-button.ui-button.ui-state-default(tabindex='0') 尾页
-    
+                  td.orderInfo(colspan='4') 暂无数据    
     
           script(type='text/javascript', src='js/moment.js')
           script(type='text/javascript', src='js/daterangepicker.js')
