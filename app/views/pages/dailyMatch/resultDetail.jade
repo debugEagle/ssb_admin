@@ -129,15 +129,19 @@ block content
                       th 姓名
                       |               
                       th 奖金
+                      |               
+                      th 备注
                   |           
                   tbody.resultTable
-                    each item in result
+                    each item in result.items
                       tr
                         td #{item.rank}
                         |               
                         td #{item.name}
                         |               
                         td #{item.bonus}
+                        |               
+                        td #{item.remark}
               |             
               .form-actions
                 //input.btn.btn-success.success(type='button', value='修改')
