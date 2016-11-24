@@ -1,0 +1,35 @@
+extend ../layout
+
+block head
+  link(rel='stylesheet', href='css/uniform.css')
+  link(rel='stylesheet', href='css/select2.css')
+  link(rel='stylesheet', href='/css/jquery.gritter.css')
+  link(rel='stylesheet', href='/css/bootstrap-responsive.min.css')
+  script(src='common/js/index.js')
+
+
+block content
+    #content
+      #content-header
+        #breadcrumb
+          a.tip-bottom(href='/', title='Go to Home')
+            i.icon-home
+            |  主页
+      // Action boxes
+      .container-fluid
+        .quick-actions_homepage
+          ul.quick-actions
+            li.bg_ly
+              p #{content.bigMatchSerie.organization.casino.address.address}
+            li.bg_ly
+              p #{content.bigMatchSerie.start_date}
+              p #{content.bigMatchSerie.end_date}
+            li.bg_ly
+              p #{content.introContent}
+            li.bg_ly
+              p #{content.tips}
+              p #{content.bigMatchSerie.name}
+        // End-Action boxes
+        hr
+    
+    

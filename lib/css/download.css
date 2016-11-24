@@ -129,11 +129,19 @@ input#start {
     width: 15%;
 }
 
-input#end {
+input.end {
     width: 15%;
     margin-left: 7%;
 }
 
+input#end {
+    width: 15%;
+}
+
 input[type="checkbox"] {
     margin-left: 1%
+}
+
+input[type="radio"] {
+    margin-left: 1%;
 }

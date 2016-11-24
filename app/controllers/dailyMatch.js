@@ -1,3 +1,5 @@
+'use script'
+
 const Http = Unify.http
 const prefix = Conf.url
 
@@ -28,7 +30,7 @@ exports.resultDetail = function (req, res) {
 
     const detail = req.detail
     const result = detail.result ? JSON.parse(detail.result) : ''
-    
+
     res.cookie('result', detail.result)
     res.render('dailyMatch/resultDetail', {
           title: '日赛结果详情',

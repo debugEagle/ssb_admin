@@ -1,0 +1,209 @@
+extend ../../layout
+
+block head
+  link(rel='stylesheet', href='../css/download.css')
+  link(rel='stylesheet', type='text/css', media='all', href='../css/daterangepicker-bs3.css')
+  script(src='../common/js/bigMatch/addSerie.js')
+  
+block sidebar
+  #sidebar
+    a.visible-phone(href='/')
+      i.icon.icon-home
+      |  主页
+    |   
+    ul
+      if role === 1
+        li
+          a(href='/paper')
+            i.icon.icon-inbox
+            |  
+            span 门票验证
+        |     
+        li
+          a(href='/orders')
+            i.icon.icon-th
+            |  
+            span 订单查询
+        |   
+        li
+          a(href='/vip')
+            i.icon.icon-th
+            |  
+            span 会员管理
+      if role > 9   
+        li.submenu.dailyMatch.open
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 日赛
+            |  
+            span.label.label-important 4
+          |       
+          ul.match
+            li
+              a(href='/dailyChooseClub?id=1') 发布日赛
+            li
+              a(href='/dailyChooseClub?id=2') 日赛日历
+            li
+              a(href='/dailyMatchResult') 发布日赛结果
+            li
+              a(href='/dailyChooseClub?id=3') 日赛系列列表
+        li.settingLabel
+          a(href='/dailyChooseClub·?id=4')
+            i.icon.icon-th
+            |  
+            span 赛事结构列表
+        li.submenu
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 俱乐部
+            |  
+            span.label.label-important 1
+          |       
+          ul
+            li
+              a(href='/addClub') 添加俱乐部
+
+
+block content
+    #content
+      #content-header
+        #breadcrumb
+          a.tip-bottom(href='/', title='Go to Home')
+            i.icon-home
+            |  主页
+          a.tip-bottom(href='#') #{title}
+          |   
+      // Action boxes
+      .container-fluid
+        hr
+        |   
+        .row-fluid
+          .widget-box
+            .widget-title
+              span.icon
+                i.icon-align-justify
+              |           
+              h5 
+            |  
+            .widget-content.nopadding
+              form.form-horizontal.addBigMatchSerie(enctype="multipart/form-data")
+                .control-group
+                  label.control-label 大赛系列名称 :
+                  |               
+                  .controls
+                    input.span5(type='text', name='name', placeholder='大赛系列名称') 
+                    input.span5(type='hidden', name='organization_id', value='#{organization_id}')
+                .control-group
+                  label.control-label 赛事类型 :
+                  |               
+                  .controls
+                    input(type='radio',name='type', value='1', checked) 
+                    | 国际大赛        
+                    input(type='radio',name='type', value='2') 
+                    | 国内大赛
+                    input(type='radio',name='type', value='3')
+                    | 俱乐部大赛
+                .control-group
+                  label.control-label 是否巡回赛 :
+                  |               
+                  .controls
+                    input(type='radio',name='is_tour', value='1') 
+                    | 是        
+                    input(type='radio',name='is_tour', value='0', checked) 
+                    | 否
+                .control-group.tour.hide
+                  label.control-label 巡回赛 :
+                  |               
+                  .controls
+                    select(name='tour')
+                      option(value='0', selected='true') 请选择
+                        each iterm in lists
+                          option(value='#{iterm.bigMatchTour_id}') #{iterm.name}
+                .control-group
+                  label.control-label 巡回赛图片 :
+                  |               
+                  .controls
+                    input.span5(type='text', name='tour_image', placeholder='巡回赛图片') 
+                .control-group
+                  label.control-label 推荐图片 :
+                  |               
+                  .controls
+                    input.span5(type='text', name='image_url', placeholder='推荐图片') 
+                .control-group
+                  label.control-label 介绍图片 :
+                  |               
+                  .controls
+                    input.span5(type='text', name='intro_image_url', placeholder='介绍图片') 
+                .control-group
+                  label.control-label 介绍标题 :
+                  |               
+                  .controls
+                    input.span5(type='text', name='intro_title', placeholder='介绍标题') 
+                .control-group
+                  label.control-label 介绍内容 :
+                  |               
+                  .controls
+                    textarea.span5(type='text', name='intro_content', placeholder='介绍内容') 
+                .control-group
+                  label.control-label 推荐等级 :
+                  |               
+                  .controls
+                    input(type='radio',name='hot_level', value='5', checked) 
+                    | 5        
+                    input(type='radio',name='hot_level', value='4') 
+                    | 4
+                    input(type='radio',name='hot_level', value='3') 
+                    | 3        
+                    input(type='radio',name='hot_level', value='2') 
+                    | 2
+                    input(type='radio',name='hot_level', value='1') 
+                    | 1        
+                .control-group
+                  label.control-label 是否展示 :
+                  |               
+                  .controls
+                    input(type='radio',name='need_show', value='1', checked) 
+                    | 是        
+                    input(type='radio',name='need_show', value='0') 
+                    | 否 
+                .control-group
+                  label.control-label 开始日期 :
+                  |               
+                  .controls
+                      input#start(type='text', readonly='', name='start_date', placeholder='开始时间')
+                .control-group
+                  label.control-label 结束日期 :
+                  |               
+                  .controls
+                      input#end(type="text", readonly='', name='end_date', placeholder='结束日期')
+                .control-group
+                  label.control-label 是否合作 :
+                  |               
+                  .controls
+                    input(type='radio',name='cooperated', value='1', checked) 
+                    | 是        
+                    input(type='radio',name='cooperated', value='0') 
+                    | 否 
+                .control-group
+                  label.control-label 是否热门赛事 :
+                  |               
+                  .controls
+                    input(type='radio',name='is_hot', value='1', checked) 
+                    | 是        
+                    input(type='radio',name='is_hot', value='0') 
+                    | 否  
+                .control-group
+                  label.control-label 备注 :
+                  |               
+                  .controls
+                    textarea.span5(type='text', name='remark', placeholder='备注') 
+                .form-actions
+                  button.btn.btn-success.success(type='button') 提交
+                  button.btn.btn-success.back(type='button') 返回
+      
+                  
+              script(type='text/javascript', src='../js/moment.js')
+              script(type='text/javascript', src='../js/daterangepicker.js')
+    

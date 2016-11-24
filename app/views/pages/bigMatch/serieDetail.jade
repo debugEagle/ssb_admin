@@ -1,0 +1,170 @@
+extend ../../layout
+
+block head
+    link(rel='stylesheet', href='/css/download.css')
+    script(src='../common/js/bigMatch/tourDetail.js')
+
+block sidebar
+  #sidebar
+    a.visible-phone(href='/')
+      i.icon.icon-home
+      |  主页
+    |   
+    ul
+      if role === 1
+        li
+          a(href='/paper')
+            i.icon.icon-inbox
+            |  
+            span 门票验证
+        |     
+        li
+          a(href='/orders')
+            i.icon.icon-th
+            |  
+            span 订单查询
+        | 
+        li
+          a(href='/vip')
+            i.icon.icon-th
+            |  
+            span 会员管理  
+      if role > 9   
+        li.submenu.open
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 日赛
+            |  
+            span.label.label-important 4
+          |       
+          ul
+            li
+              a(href='/dailyChooseClub?id=1') 发布日赛
+            li
+              a(href='/dailyChooseClub?id=2') 日赛日历
+            li
+              a(href='/dailyMatchResult') 发布日赛结果
+            li
+              a(href='/dailyChooseClub?id=3') 日赛系列列表
+        li
+          a(href='/dailyChooseClub?id=4')
+            i.icon.icon-th
+            |  
+            span 赛事结构列表
+        li.submenu
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 俱乐部
+            |  
+            span.label.label-important 1
+          |       
+          ul
+            li
+              a(href='/addClub') 添加俱乐部   
+
+block content
+  #content
+    #content-header
+      #breadcrumb
+        a.tip-bottom(href='/', title='Go to Home')
+          i.icon-home
+          |  主页
+        |  
+        a.tip-bottom(href='/bigChooseClub') 大赛系列列表
+        |  
+        a.tip-bottom(href='#') #{title}
+      h1 #{title}
+    .container-fluid
+      hr
+      |   
+      .row-fluid
+        .widget-box
+          .widget-title
+            span.icon
+              i.icon-align-justify
+            |           
+            h5 
+          |  
+          .widget-content.nopadding
+            form.form-horizontal.dailyMatchInfo(enctype="multipart/form-data")
+              .control-group
+                label.control-label 大赛系列名称 :
+                |               
+                .controls
+                  input.span5(type='text', readonly, value='#{detail.name}') 
+                  input.span5(type='hidden', name='id')
+              .control-group
+                label.control-label 赛事类型 :
+                |               
+                .controls
+                  input.span5(type='text', readonly, value='#{detail.type}') 
+              .control-group
+                label.control-label 是否巡回赛 :
+                |               
+                .controls
+                  input.span5(type='text', readonly, value='#{detail.is_tour}') 
+              .control-group
+                label.control-label 巡回赛图片 :
+                |               
+                .controls
+                  input.span5(type='text', readonly, value='#{detail.tour_image}') 
+              .control-group
+                label.control-label 推荐图片 :
+                |               
+                .controls
+                  input.span5(type='text', readonly, value='#{detail.image_url}') 
+              .control-group
+                label.control-label 介绍图片 :
+                |               
+                .controls
+                  input.span5(type='text', readonly, value='#{detail.intro_image_url}') 
+              .control-group
+                label.control-label 介绍标题 :
+                |               
+                .controls
+                  input.span5(type='text', readonly, value='#{detail.intro_title}') 
+              .control-group
+                label.control-label 介绍内容 :
+                |               
+                .controls
+                  input.span5(type='text', readonly, value='#{detail.intro_content}') 
+              .control-group
+                label.control-label 推荐等级 :
+                |               
+                .controls
+                  input.span5(type='text', readonly, value='#{detail.hot_level}') 
+              .control-group
+                label.control-label 是否展示 :
+                |               
+                .controls
+                  input.span5(type='text', readonly, value='#{detail.need_show}') 
+              .control-group
+                label.control-label 开始时间 :
+                |               
+                .controls
+                  input.span5(type='text', readonly, value='#{detail.start_date}') 
+              .control-group
+                label.control-label 结束时间 :
+                |               
+                .controls
+                  input.span5(type='text', readonly, value='#{detail.end_date}') 
+              .control-group
+                label.control-label 是否合作 :
+                |               
+                .controls
+                  input.span5(type='text', readonly, value='#{detail.cooperated}') 
+              .control-group
+                label.control-label 是否热门赛事 :
+                |               
+                .controls
+                  input.span5(type='text', readonly, value='#{detail.is_hot}') 
+              .control-group
+                label.control-label 备注 :
+                |               
+                .controls
+                  textarea.span5(type='text', readonly) #{detail.remark}
+              .form-actions
+                //input.btn.btn-success.success(type='button', value='修改')
+                input.btn.btn-success.back(type='button', value='返回')       

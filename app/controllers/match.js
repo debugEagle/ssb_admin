@@ -86,14 +86,14 @@ exports.matchList = function(req, res) {
 // 赛事详情
 exports.matchDetail = function (req, res, next) {
 
-    const detail = req.detail.value
+    const detail = req.detail
 
-          res.render('match/matchDetail', {
-                title: '赛事系列详情',
-                role: req.user.role,
-                username: req.user.businessName,
-                detail: detail,
-          })
+    res.render('match/matchDetail', {
+          title: '赛事系列详情',
+          role: req.user.role,
+          username: req.user.businessName,
+          detail: detail,
+    })
 
 }
 
@@ -308,34 +308,23 @@ exports.settingDetail = function (req, res, next) {
 
 // 获取赛事详情
 exports.detail = function (req, res, next) {
-    const Cookies = {};
-    const id = req.params.id
-    const url = api.detail + '?id=' + id
 
-    req.headers.cookie && req.headers.cookie.split(';').forEach(function( Cookie ) {
-        var parts = Cookie.split('=');
-        Cookies[ parts[ 0 ].trim() ] = ( parts[ 1 ] || '' ).trim();
-    });
+    const url = api.detail
+    const data = {id : req.params.id}
 
-    const headers = {
-       "Content-Type": "application/json",
-       "authorization": "Bearer " + Cookies.tokenId,
-    }
+    Http.get(url , data, tokenId = '').then((data) => {
+          if (data.code == 0) {
+              req.detail = data.value
+          } else {
+              res.render('login', {})
+          }
 
-    const opt = {
-          url:url,
-          json:true,
-          method:'get',
-          headers:headers,
-          "rejectUnauthorized": false,
-    }
+          next()
 
-    request(opt).then(function (response) {
-
-        req.detail = response.body
-
-        next()
+    }, (err) => {
+        logger.warn(err.cause)
     })
+
 }
 
 function getDay() {

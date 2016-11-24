@@ -1,12 +1,12 @@
-extend ../layout
+extend ../../layout
 
 block head
   link(rel='stylesheet', href='css/uniform.css')
   link(rel='stylesheet', href='css/select2.css')
   link(rel='stylesheet', href='/css/jquery.gritter.css')
   link(rel='stylesheet', href='/css/bootstrap-responsive.min.css')
-  link(rel='stylesheet', href='/css/download.css')
-  script(src='../common/js/chooseClub.js')
+  //script(src='/js/select2.min.js')
+  script(src='../common/js/index.js')
   
 block sidebar
   #sidebar
@@ -27,14 +27,14 @@ block sidebar
             i.icon.icon-th
             |  
             span 订单查询
-        |   
+        | 
         li
           a(href='/vip')
             i.icon.icon-th
             |  
-            span 会员管理
-      if role > 9   
-        li.submenu.dailyMatch.open
+            span 会员管理 
+      if role > 9    
+        li.submenu.open
           a(href='#')
             i.icon.icon-list
             |  
@@ -42,17 +42,17 @@ block sidebar
             |  
             span.label.label-important 4
           |       
-          ul.match
+          ul
             li
-              a(href='/chooseclub?id=1') 发布日赛
+              a(href='/dailyChooseClub?id=1') 发布日赛
             li
-              a(href='/chooseclub?id=2') 日赛日历
+              a(href='/dailyChooseClub?id=2') 日赛日历
             li
               a(href='/dailyMatchResult') 发布日赛结果
             li
-              a(href='/chooseclub?id=3') 日赛系列列表
-        li.settingLabel
-          a(href='/chooseclub?id=4')
+              a(href='/dailyChooseClub?id=3') 日赛系列列表
+        li
+          a(href='/dailyChooseClub?id=4')
             i.icon.icon-th
             |  
             span 赛事结构列表
@@ -76,35 +76,22 @@ block content
           a.tip-bottom(href='/', title='Go to Home')
             i.icon-home
             |  主页
-          a.tip-bottom(href='#') #{title}
+          a.tip-bottom(href='/bigMatchTourList') #{title}
           |   
       // Action boxes
       .container-fluid
+        .quick-actions_homepage
+          ul.quick-actions
+            each list in lists
+              li.bg_ly
+                a(href='/bigMatchSerieDetail/#{list.bigMatchSerie_id}')
+                  i.icon-th
+                  | #{list.name}
+            li.bg_lo
+              a(href='/addBigMatchSerie/#{organization_id}')
+                i.icon-th
+                | 新增
+        // End-Action boxes
         hr
-        |   
-        .row-fluid
-          .widget-box
-            .widget-title
-              span.icon
-                i.icon-align-justify
-              |           
-              h5 
-            |  
-            .widget-content.nopadding
-              form.form-horizontal.addMatch(enctype="multipart/form-data")
-                .control-group
-                  label.control-label 俱乐部 :
-                  |               
-                  .controls
-                    select(name='club')
-                      option(value='0', selected='true') 请选择
-                      option(value='22') 跑跑俱乐部
-                      option(value='75') e+俱乐部
-                      option(value='0') 扑克联盟俱乐部
-                      option(value='26') 京扑克俱乐部
-                      option(value='0') 熊猫俱乐部
-                .form-actions
-                  button.btn.btn-success.success(type='button') 提交
-      
     
     

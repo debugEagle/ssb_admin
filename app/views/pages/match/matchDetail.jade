@@ -1,20 +1,7 @@
 extend ../../layout
 
 block head
-    style.
-      span.headLeft {
-      font-size: larger;
-      position: relative;
-      left: 52%;
-      top: -48px;
-      color: white;
-      }
-      div#headerFront {
-      position: fixed;
-      }
-      td {
-      text-align: center;
-      }
+    link(rel='stylesheet', href='/css/download.css')
     script(src='../common/js/match/matchDetail.js')
 
     
@@ -54,15 +41,15 @@ block sidebar
           |       
           ul
             li
-              a(href='/chooseclub?id=1') 发布日赛
+              a(href='/dailyChooseClub?id=1') 发布日赛
             li.active
-              a(href='/chooseclub?id=2') 日赛日历
+              a(href='/dailyChooseClub?id=2') 日赛日历
             li
               a(href='/dailyMatchResult') 发布日赛结果
             li
-              a(href='/chooseclub?id=3') 日赛系列列表
+              a(href='/dailyChooseClub?id=3') 日赛系列列表
         li
-          a(href='/chooseclub?id=4')
+          a(href='/dailyChooseClub?id=4')
             i.icon.icon-th
             |  
             span 赛事结构列表
@@ -106,46 +93,64 @@ block content
                 label.control-label 赛事名称 :
                 |               
                 .controls
-                  input.span5(type='text', value='#{detail.dailyMatchSerie.name}')
+                  input.span5(type='text', readonly, value='#{detail.dailyMatchSerie.name}')
+                  input.hide(type='text', readonly, value='#{detail.dailyMatch_id}')
                   |     
               .control-group
                 label.control-label 日期 :
                 |               
                 .controls
-                  input(type='text', value='#{detail.match_day}')
+                  input(type='text', readonly, value='#{detail.match_day}')
                   |          
               .control-group
                 label.control-label 开始时间 :
                 |               
                 .controls
-                  input(type='text', value='#{detail.start_time}')  
+                  input(type='text', readonly, value='#{detail.start_time}')  
                   |   
               .control-group
                 label.control-label 报名截止时间 :
                 |               
                 .controls
                   .input-append#datetimepicker2
-                    input(type='text', value='#{detail.close_reg_time}')
+                    input(type='text', readonly, value='#{detail.close_reg_time}')
                     |  
               .control-group
                 label.control-label 单价 :
                 |               
                 .controls
-                  input.span5(type='text', value='#{detail.unit_price}')
+                  input.span5(type='text', readonly, value='#{detail.unit_price}')
                   |  
               .control-group
                 label.control-label 备注 :
                 |               
                 .controls
-                  textarea.span5(name='remark', value='#{detail.remark}')
-                  |  
+                  textarea.span5(name='remark', readonly) #{detail.remark}
               .control-group
                 label.control-label 赛事结构表 :
                 |               
                 .controls
-                  input.span5(type='text', value='#{detail.matchSetting.name}')
-                  |  
+                  input.span5(type='text', readonly, value='#{detail.matchSetting.name}')
+              .control-group
+                label.control-label 展示状态 :
+                |               
+                .controls
+                  if (detail.state === 1)
+                    input.span5(type='text', readonly, value='正常展示')
+                  else
+                    input.span5(type='text', readonly, value='不展示')
+              .control-group
+                label.control-label 是否展示 :
+                |               
+                .controls
+                  select(name='state')
+                    option(value='0', selected='true') 请选择
+                    option(value='1') 是
+                    option(value='3') 否
+                  
+                  
               .form-actions
+                input.btn.btn-success.success(type='button', value='提交')
                 button.btn.btn-success.back(type='button') 返回
                 
 

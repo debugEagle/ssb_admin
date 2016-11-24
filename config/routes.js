@@ -2,6 +2,7 @@
 
 const Promise =require('bluebird')
 const request = Promise.promisify(require('request'))
+const Share = require('../app/controllers/share')
 const Club = require('../app/controllers/club')
 const Match = require('../app/controllers/match')
 const DailyMatch = require('../app/controllers/dailyMatch')
@@ -41,6 +42,8 @@ module.exports = function (app) {
     app.get('/addClub', Club.addClub)
 
     app.post('/upload', Match.upload)
+    //分享
+    app.get('/share/:id', Share.content, Share.shareMatch)
 
     //日赛
     app.get('/addMatch', Match.settingList,Match.serieList, Match.addMatch)
@@ -61,14 +64,20 @@ module.exports = function (app) {
     app.get('/addTour', BigMatch.addTour)
     app.get('/bigMatchTourList', BigMatch.tourList, BigMatch.bigMatchTourList)
     app.get('/bigMatchTourDetail', BigMatch.tourDetail, BigMatch.bigMatchTourDetail)
+    app.get('/bigMatchSerieList/:id', BigMatch.serieList, BigMatch.bigMatchSerieList)
+    app.get('/bigMatchSerieDetail/:id', BigMatch.serieDetail, BigMatch.bigMatchSerieDetail)
+    app.get('/addBigMatchSerie/:id', BigMatch.tourList, BigMatch.addBigMatchSerie)
 
     //选择俱乐部
-    app.get('/chooseClub', ChooseClub.chooseClub)
+    app.get('/dailyChooseClub', ChooseClub.dailyChooseClub)
+    app.get('/bigChooseClub', ChooseClub.bigChooseClub)
 
     //日赛结果
     app.get('/dailyMatchResult', DailyMatch.result)
     app.get('/addResult', DailyMatch.addResult)
     app.get('/resultDetail', DailyMatch.getResult, DailyMatch.resultDetail)
+
+
 
     app.get('/vip', CasinoVip.vip)
 
