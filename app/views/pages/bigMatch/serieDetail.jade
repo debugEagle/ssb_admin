@@ -2,7 +2,7 @@ extend ../../layout
 
 block head
     link(rel='stylesheet', href='/css/download.css')
-    script(src='../common/js/bigMatch/tourDetail.js')
+    script(src='../common/js/bigMatch/serieDetail.js')
 
 block sidebar
   #sidebar
@@ -94,7 +94,8 @@ block content
                 |               
                 .controls
                   input.span5(type='text', readonly, value='#{detail.name}') 
-                  input.span5(type='hidden', name='id')
+                  input.span5(type='hidden', name='id', value='#{detail.bigMatchSerie_id}')
+                  input.span5(type='hidden', name='bigMatchId', value='#{detail.bigMatches}')
               .control-group
                 label.control-label 赛事类型 :
                 |               
@@ -166,5 +167,8 @@ block content
                 .controls
                   textarea.span5(type='text', readonly) #{detail.remark}
               .form-actions
-                //input.btn.btn-success.success(type='button', value='修改')
+                if detail.bigMatches === 0
+                  input.btn.btn-success.success(type='button', value='发布大赛')
+                else
+                  input.btn.btn-success.success(type='button', value='大赛详情')
                 input.btn.btn-success.back(type='button', value='返回')       

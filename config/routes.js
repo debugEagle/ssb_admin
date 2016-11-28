@@ -62,11 +62,15 @@ module.exports = function (app) {
 
     //大赛
     app.get('/addTour', BigMatch.addTour)
+    app.get('/addBigMatch/:id', BigMatch.addBigMatch)
+    app.get('/setDetail/:id',BigMatch.setInfo, BigMatch.setDetail)
+    app.get('/addBigMatchSerie/:id', BigMatch.tourList, BigMatch.addBigMatchSerie)
+    app.get('/bigMatchDetail/:id',BigMatch.detail, BigMatch.bigMatchDetail)
     app.get('/bigMatchTourList', BigMatch.tourList, BigMatch.bigMatchTourList)
     app.get('/bigMatchTourDetail', BigMatch.tourDetail, BigMatch.bigMatchTourDetail)
     app.get('/bigMatchSerieList/:id', BigMatch.serieList, BigMatch.bigMatchSerieList)
     app.get('/bigMatchSerieDetail/:id', BigMatch.serieDetail, BigMatch.bigMatchSerieDetail)
-    app.get('/addBigMatchSerie/:id', BigMatch.tourList, BigMatch.addBigMatchSerie)
+
 
     //选择俱乐部
     app.get('/dailyChooseClub', ChooseClub.dailyChooseClub)

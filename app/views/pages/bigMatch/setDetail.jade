@@ -1,0 +1,183 @@
+extend ../../layout
+
+block head
+    style.
+      span.headLeft {
+      font-size: larger;
+      position: relative;
+      left: 52%;
+      top: -48px;
+      color: white;
+      }
+      div#headerFront {
+      position: fixed;
+      }
+      td {
+      text-align: center;
+      }
+    link(rel='stylesheet', href='/css/download.css')
+    script(src='../common/js/bigMatch/setDetail.js')
+    
+block sidebar
+  #sidebar
+    a.visible-phone(href='/')
+      i.icon.icon-home
+      |  主页
+    |   
+    ul
+      if role === 1
+        li
+          a(href='/paper')
+            i.icon.icon-inbox
+            |  
+            span 门票验证
+        |     
+        li
+          a(href='/orders')
+            i.icon.icon-th
+            |  
+            span 订单查询
+        |  
+        li
+          a(href='/vip')
+            i.icon.icon-th
+            |  
+            span 会员管理 
+      if role > 9   
+        li.submenu.open
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 日赛
+            |  
+            span.label.label-important 4
+          |       
+          ul
+            li
+              a(href='/dailyChooseClub?id=1') 发布日赛
+            li
+              a(href='/dailyChooseClub?id=2') 日赛日历
+            li
+              a(href='/dailyMatchResult') 发布日赛结果
+            li
+              a(href='/dailyChooseClub?id=3') 日赛系列列表
+        li
+          a(href='/dailyChooseClub?id=4')
+            i.icon.icon-th
+            |  
+            span 赛事结构列表
+        li.submenu
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 俱乐部
+            |  
+            span.label.label-important 1
+          |       
+          ul
+            li
+              a(href='/addClub') 添加俱乐部   
+
+block content
+  #content
+    #content-header
+      #breadcrumb
+        a.tip-bottom(href='/', title='Go to Home')
+          i.icon-home
+          |  主页
+        |  
+        a.tip-bottom(href='#') #{title}
+        |  
+      h1 #{title}
+    .container-fluid
+      hr
+      |   
+      .row-fluid
+        .widget-box
+          .widget-title
+            span.icon
+              i.icon-align-justify
+            |           
+            h5 
+          |  
+          .widget-content.nopadding
+            form.form-horizontal.addMatch(enctype="multipart/form-data")
+              .control-group
+                label.control-label 大赛ID :
+                |               
+                .controls
+                  input.span5(type='text',name='id' readonly, value='#{setInfo.bigMatch_id}')
+                  input(type='hidden', name='can_register', value='#{setInfo.can_register}')
+                  input(type='hidden', name='state', value='#{setInfo.state}')
+                  input(type='hidden', name='isPromoted', value='#{setInfo.isPromoted}')
+                  input(type='hidden', name='matchSetting_id', value='#{setInfo.matchSetting_id}')
+                  input(type='hidden', name='haveMatchSetting', value='#{setInfo.haveMatchSetting}')
+                  input(type='hidden', name='haveMatchBonus', value='#{setInfo.haveMatchBonus}')
+                  input(type='hidden', name='haveMatchResult', value='#{setInfo.haveMatchResult}')
+              .control-group
+                label.control-label 赛事时间 :
+                |               
+                .controls
+                  input.span5(type='text', readonly, value='#{setInfo.match_day}')
+              .control-group
+                label.control-label 赛事名称 :
+                |               
+                .controls
+                  input.span5(type='text', readonly, value='#{setInfo.name}')
+              .control-group
+                label.control-label 是否可以报名 :
+                |               
+                .controls
+                  select(name='can_register')
+                    option(value='1') 是
+                    option(value='0') 否
+              .control-group
+                label.control-label 赛事状态 :
+                |               
+                .controls
+                  select(name='state')
+                    option(value='0') 未举行
+                    option(value='1') 可以参赛
+                    option(value='2') 已经过期
+                    option(value='3') 不能参赛
+              .control-group
+                label.control-label 是否晋级赛 :
+                |               
+                .controls
+                  select(name='isPromoted')
+                    option(value='1') 是
+                    option(value='0') 否
+              .control-group
+                label.control-label 结构表 :
+                |               
+                .controls
+                  select(name='matchSetting')
+                    each item in setInfo.matchSetting
+                      option(value='#{item.matchSetting_id}') #{item.name}
+              .control-group
+                label.control-label 有无盲注结构表 :
+                |               
+                .controls
+                  select(name='haveMatchSetting')
+                    option(value='1') 有
+                    option(value='0') 无
+              .control-group
+                label.control-label 有无奖金结构表 :
+                |               
+                .controls
+                  select(name='haveMatchBonus')
+                    option(value='1') 有
+                    option(value='0') 无
+              .control-group
+                label.control-label 有无结果结构表 :
+                |               
+                .controls
+                  select(name='haveMatchResult')
+                    option(value='1') 有
+                    option(value='0') 无
+              .form-actions
+                button.btn.btn-success.success(type='button') 修改
+                button.btn.btn-success.back(type='button') 返回
+                
+        
+          
