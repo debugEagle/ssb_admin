@@ -1,10 +1,6 @@
 extend ../../layout
 
 block head
-  link(rel='stylesheet', href='css/uniform.css')
-  link(rel='stylesheet', href='css/select2.css')
-  link(rel='stylesheet', href='/css/jquery.gritter.css')
-  link(rel='stylesheet', href='/css/bootstrap-responsive.min.css')
   link(rel='stylesheet', href='/css/download.css')
   script(src='../common/js/dailyMatch/chooseClub.js')
   
@@ -33,7 +29,20 @@ block sidebar
             i.icon.icon-th
             |  
             span 会员管理
-      if role > 9   
+      if role > 9 
+        li.submenu
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 大赛
+            |  
+            span.label.label-important 4
+          |       
+          ul.bigMatch
+            li
+              a(href='/bigChooseClub/1') 大赛系列列表
+            li
+              a(href='/bigChooseClub/2') 发布大赛结果  
         li.submenu.dailyMatch.open
           a(href='#')
             i.icon.icon-list
@@ -48,9 +57,9 @@ block sidebar
             li
               a(href='/dailyChooseClub?id=2') 日赛日历
             li
-              a(href='/dailyMatchResult') 发布日赛结果
-            li
               a(href='/dailyChooseClub?id=3') 日赛系列列表
+            li
+              a(href='/dailyMatchResult') 发布日赛结果
         li.settingLabel
           a(href='/dailyChooseClub?id=4')
             i.icon.icon-th
@@ -100,9 +109,10 @@ block content
                       option(value='0', selected='true') 请选择
                       option(value='22') 跑跑俱乐部
                       option(value='75') e+俱乐部
-                      option(value='0') 扑克联盟俱乐部
+                      option(value='83') 扑克联盟俱乐部
                       option(value='26') 京扑克俱乐部
-                      option(value='0') 熊猫俱乐部
+                      option(value='85') 大赛专用
+                      //option(value='0') 熊猫俱乐部
                 .form-actions
                   button.btn.btn-success.success(type='button') 提交
       

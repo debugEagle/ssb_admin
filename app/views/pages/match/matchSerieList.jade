@@ -33,7 +33,20 @@ block sidebar
             i.icon.icon-th
             |  
             span 会员管理
-      if role > 9     
+      if role > 9   
+        li.submenu
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 大赛
+            |  
+            span.label.label-important 4
+          |       
+          ul.bigMatch
+            li
+              a(href='/bigChooseClub/1') 大赛系列列表
+            li
+              a(href='/bigChooseClub/2') 发布大赛结果   
         li.submenu.open
           a(href='#')
             i.icon.icon-list
@@ -52,7 +65,7 @@ block sidebar
             li.active
               a(href='/chooseclub?id=3') 日赛系列列表
         li
-          a(href='/chooseclub?id=4')
+          a(href='/dailyChooseClub?id=4')
             i.icon.icon-th
             |  
             span 赛事结构列表

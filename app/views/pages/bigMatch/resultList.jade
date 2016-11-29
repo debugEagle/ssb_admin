@@ -2,22 +2,11 @@ extend ../../layout
 
 block head
     style.
-      span.headLeft {
-      font-size: larger;
-      position: relative;
-      left: 52%;
-      top: -48px;
-      color: white;
-      }
-      div#headerFront {
-      position: fixed;
-      }
       td {
       text-align: center;
       }
     link(rel='stylesheet', href='/css/download.css')
-    script(src='../common/js/dailyMatch/resultDetail.js')
-    script(src='js/jquery.form.js')
+    script(src='../common/js/bigMatch/addBigMatch.js')
 
 block sidebar
   #sidebar
@@ -45,7 +34,7 @@ block sidebar
             |  
             span 会员管理 
       if role > 9
-        li.submenu
+        li.submenu.open
           a(href='#')
             i.icon.icon-list
             |  
@@ -53,12 +42,12 @@ block sidebar
             |  
             span.label.label-important 4
           |       
-          ul.bigMatch
+          ul
             li
               a(href='/bigChooseClub/1') 大赛系列列表
-            li
+            li.active
               a(href='/bigChooseClub/2') 发布大赛结果 
-        li.submenu.open
+        li.submenu
           a(href='#')
             i.icon.icon-list
             |  
@@ -73,7 +62,7 @@ block sidebar
               a(href='/dailyChooseClub?id=2') 日赛日历
             li
               a(href='/dailyChooseClub?id=3') 日赛系列列表
-            li.active
+            li
               a(href='/dailyMatchResult') 发布日赛结果
         li
           a(href='/dailyChooseClub?id=4')
@@ -99,12 +88,9 @@ block content
         a.tip-bottom(href='/', title='Go to Home')
           i.icon-home
           |  主页
-        |  
-        a.tip-bottom(href='/matchSettingList') 日赛结果
         | 
         a.tip-bottom(href='#') #{title}
         |  
-      h1 #{title}
     .container-fluid
       hr
       |   
@@ -114,48 +100,30 @@ block content
             span.icon
               i.icon-align-justify
             |           
-            h5 日赛结果详情
+            h5 大赛详情
           |  
           .widget-content.nopadding
-            form.form-horizontal.dailyMatchInfo(enctype="multipart/form-data")
-              .control-group
-                label.control-label 日赛结果名称 :
-                |               
-                .controls
-                  input.span5(type='text', placeholder='日赛结果名称', name='name', value='#{detail.name}') 
-            form.form-horizontal.resultForm(enctype="multipart/form-data")
-              .control-group
-                label.control-label 日赛结果 :
-                |               
-                .uploader.white
-                  input.filename(type='', readonly='')
-                  input.button(type='button', name='file', value='选择文件') 
-                  input(type='file', name='file')
-                .con-file.white
-                  input.subResultTable(type='button', value='导入')
+            form.form-horizontal.bigMatchForm(enctype="multipart/form-data")
               .widget-content.nopadding
                 table.table.table-bordered.data-table
                   thead
                     tr
-                      th 名次
-                      |               
-                      th 姓名
-                      |               
-                      th 奖金
-                      |               
-                      th 备注
+                      th ID
+                      th 赛事时间
+                      th 赛事名称
+                      th 赛事结果
                   |           
-                  tbody.resultTable
-                    each item in result.items
+                  tbody.bigMatchTable
+                    each list in lists
                       tr
-                        td #{item.rank}
-                        |               
-                        td #{item.name}
-                        |               
-                        td #{item.bonus}
-                        |               
-                        td #{item.remark}
-              |             
-              .form-actions
-                //input.btn.btn-success.success(type='button', value='修改')
-                input.btn.btn-success.back(type='button', value='返回')
+                        td #{list.bigMatch_id}
+                        td #{list.match_day}
+                        td #{list.name}
+                        if list.bigMatchResult === null
+                          td 
+                            a(href='/addBigMatchResult/#{list.bigMatch_id}') 点击添加
+                        else
+                          td 
+                            a(href='/bigMatchResultDetail/#{list.bigMatch_id}') 点击查看
+                    
+                            

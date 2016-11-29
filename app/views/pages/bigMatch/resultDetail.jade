@@ -16,8 +16,8 @@ block head
       text-align: center;
       }
     link(rel='stylesheet', href='/css/download.css')
-    script(src='../common/js/match/addMatchSetting.js')
-    script(src='js/jquery.form.js')
+    script(src='../common/js/bigMatch/resultDetail.js')
+    script(src='/js/jquery.form.js')
 
 block sidebar
   #sidebar
@@ -45,20 +45,7 @@ block sidebar
             |  
             span 会员管理 
       if role > 9
-        li.submenu
-          a(href='#')
-            i.icon.icon-list
-            |  
-            span 大赛
-            |  
-            span.label.label-important 4
-          |       
-          ul.bigMatch
-            li
-              a(href='/bigChooseClub/1') 大赛系列列表
-            li
-              a(href='/bigChooseClub/2') 发布大赛结果 
-        li.submenu
+        li.submenu.open
           a(href='#')
             i.icon.icon-list
             |  
@@ -72,10 +59,10 @@ block sidebar
             li
               a(href='/dailyChooseClub?id=2') 日赛日历
             li
-              a(href='/dailyChooseClub?id=3') 日赛系列列表
-            li
               a(href='/dailyMatchResult') 发布日赛结果
-        li.active
+            li
+              a(href='/dailyChooseClub?id=3') 日赛系列列表
+        li
           a(href='/dailyChooseClub?id=4')
             i.icon.icon-th
             |  
@@ -100,11 +87,7 @@ block content
           i.icon-home
           |  主页
         |  
-        a.tip-bottom(href='/dailyChooseClub?id=4') 赛事结构列表
-        | 
         a.tip-bottom(href='#') #{title}
-        |  
-      h1 #{title}
     .container-fluid
       hr
       |   
@@ -114,76 +97,54 @@ block content
             span.icon
               i.icon-align-justify
             |           
-            h5 赛事结构信息表
+            h5 #{title}
           |  
           .widget-content.nopadding
             form.form-horizontal.dailyMatchInfo(enctype="multipart/form-data")
               .control-group
-                label.control-label 赛事结构名称 :
+                label.control-label 大赛结果名称 :
                 |               
                 .controls
-                  input.span5(type='text', placeholder='赛事结构名称', name='name')
+                  input.span5(type='text', name='name', value='#{name}')
+                  input(type='hidden', name='id', value='#{id}')
+            form.form-horizontal.resultForm(enctype="multipart/form-data")
               .control-group
-                label.control-label 涨盲时间 :
-                |               
-                .controls
-                  input.span5(type='text', placeholder='涨盲时间', name='blindTime')
-                  | 分钟 
-              .control-group
-                label.control-label 初始筹码 :
-                |               
-                .controls
-                  input.span5(type='text', placeholder='初始筹码', name='chip')
-              .control-group
-                label.control-label 备注 :
-                |               
-                .controls
-                  textarea.span5(name='remark') 
-            form.form-horizontal.settingForm(enctype="multipart/form-data")
-              .control-group
-                label.control-label 赛事结构表 :
+                label.control-label 大赛结果 :
                 |               
                 .uploader.white
                   input.filename(type='', readonly='')
                   input.button(type='button', name='file', value='选择文件')
                   input(type='file', name='file')
                 .con-file.white
-                  input.subSettingTable(type='button', value='导入')
-              .widget-content.nopadding
-                table.table.table-bordered.data-table
-                  thead
-                    tr
-                      th 级别
-                      |               
-                      th 小盲
-                      |               
-                      th 大盲
-                      |               
-                      th 前注
-                  |           
-                  tbody.settingTable
-            form.form-horizontal.bonusesForm(enctype="multipart/form-data")
-              .control-group
-                label.control-label 奖金结构表 :
-                |               
-                .uploader.white
-                  input.filename(type='', readonly='')
-                  input.button(type='button', name='file', value='选择文件')
-                  input(type='file', name='file')
-                .con-file.white
-                  input.subBonusesTable(type='button', value='导入')
+                  input.subResultTable(type='button', value='导入')
               .widget-content.nopadding
                 table.table.table-bordered.data-table
                   thead
                     tr
                       th 名次
                       |               
-                      th 奖励
+                      th 姓名
                       |               
-                      th 说明
+                      th 奖金
+                      |   
+                      th 国家
+                      |            
+                      th 备注
                   |           
-                  tbody.bonusesTable
-              |             
+                  tbody.resultTable
+                    each item in items
+                      tr
+                        td #{item.rank}
+                        |               
+                        td #{item.name}
+                        |               
+                        td #{item.bonus}
+                        |   
+                        td #{item.country}
+                        |            
+                        td #{item.remark}
+              |           
               .form-actions
-                input.btn.btn-success.success(type='button', value='新增')
+                input.btn.btn-success.success(type='button', value='修改')
                 input.btn.btn-success.back(type='button', value='返回')
+                

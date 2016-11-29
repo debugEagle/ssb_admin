@@ -1,10 +1,6 @@
 extend ../../layout
 
 block head
-  link(rel='stylesheet', href='css/uniform.css')
-  link(rel='stylesheet', href='css/select2.css')
-  link(rel='stylesheet', href='/css/jquery.gritter.css')
-  link(rel='stylesheet', href='/css/bootstrap-responsive.min.css')
   link(rel='stylesheet', href='/css/download.css')
   script(src='../common/js/bigMatch/chooseClub.js')
   
@@ -34,7 +30,20 @@ block sidebar
             |  
             span 会员管理
       if role > 9   
-        li.submenu.dailyMatch.open
+        li.submenu.open
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 大赛
+            |  
+            span.label.label-important 4
+          |       
+          ul.bigMatch
+            li
+              a(href='/bigChooseClub/1') 大赛系列列表
+            li
+              a(href='/bigChooseClub/2') 发布大赛结果
+        li.submenu
           a(href='#')
             i.icon.icon-list
             |  
@@ -48,9 +57,9 @@ block sidebar
             li
               a(href='/dailyChooseClub?id=2') 日赛日历
             li
-              a(href='/dailyMatchResult') 发布日赛结果
-            li
               a(href='/dailyChooseClub?id=3') 日赛系列列表
+            li
+              a(href='/dailyMatchResult') 发布日赛结果
         li.settingLabel
           a(href='/dailyChooseClub?id=4')
             i.icon.icon-th
@@ -96,6 +105,7 @@ block content
                   label.control-label 地区 :
                   |               
                   .controls
+                    input(type='hidden',name='id', value='#{id}')
                     select(name='continent')
                       option(value='0', selected='true') 请选择
                       option(value='亚洲') 亚洲

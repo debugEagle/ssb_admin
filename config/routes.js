@@ -65,7 +65,7 @@ module.exports = function (app) {
     app.get('/addBigMatch/:id', BigMatch.addBigMatch)
     app.get('/setDetail/:id',BigMatch.setInfo, BigMatch.setDetail)
     app.get('/addBigMatchSerie/:id', BigMatch.tourList, BigMatch.addBigMatchSerie)
-    app.get('/bigMatchDetail/:id',BigMatch.detail, BigMatch.bigMatchDetail)
+    app.get('/bigMatchDetail/:id', BigMatch.detail, BigMatch.bigMatchDetail)
     app.get('/bigMatchTourList', BigMatch.tourList, BigMatch.bigMatchTourList)
     app.get('/bigMatchTourDetail', BigMatch.tourDetail, BigMatch.bigMatchTourDetail)
     app.get('/bigMatchSerieList/:id', BigMatch.serieList, BigMatch.bigMatchSerieList)
@@ -74,13 +74,15 @@ module.exports = function (app) {
 
     //选择俱乐部
     app.get('/dailyChooseClub', ChooseClub.dailyChooseClub)
-    app.get('/bigChooseClub', ChooseClub.bigChooseClub)
+    app.get('/bigChooseClub/:id', ChooseClub.bigChooseClub)
 
-    //日赛结果
+    //赛事结果
     app.get('/dailyMatchResult', DailyMatch.result)
     app.get('/addResult', DailyMatch.addResult)
     app.get('/resultDetail', DailyMatch.getResult, DailyMatch.resultDetail)
-
+    app.get('/addBigMatchResult/:id', BigMatch.isPromoted, BigMatch.addBigMatchResult)
+    app.get('/bigMatchResultLists/:id', BigMatch.resultLists, BigMatch.bigMatchResultLists)
+    app.get('/bigMatchResultDetail/:id', BigMatch.isPromoted, BigMatch.resultDetail, BigMatch.bigMatchResultDetail)
 
 
     app.get('/vip', CasinoVip.vip)

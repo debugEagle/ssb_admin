@@ -44,7 +44,20 @@ block sidebar
             i.icon.icon-th
             |  
             span 会员管理 
-      if role > 9    
+      if role > 9 
+        li.submenu
+          a(href='#')
+            i.icon.icon-list
+            |  
+            span 大赛
+            |  
+            span.label.label-important 4
+          |       
+          ul.bigMatch
+            li
+              a(href='/bigChooseClub/1') 大赛系列列表
+            li
+              a(href='/bigChooseClub/2') 发布大赛结果    
         li.submenu
           a(href='#')
             i.icon.icon-list
@@ -59,9 +72,9 @@ block sidebar
             li
               a(href='/dailyChooseClub?id=2') 日赛日历
             li
-              a(href='/dailyMatchResult') 发布日赛结果
-            li
               a(href='/dailyChooseClub?id=3') 日赛系列列表
+            li
+              a(href='/dailyMatchResult') 发布日赛结果
         li.active
           a(href='/dailyChooseClub?id=4')
             i.icon.icon-th
@@ -190,6 +203,6 @@ block content
                         td #{item.remark}
               |             
               .form-actions
-                //input.btn.btn-success.success(type='button', value='修改')
+                input.btn.btn-success.success(type='button', value='修改')
                 //input.btn.btn-success.del(type='button', value='删除')
                 input.btn.btn-success.back(type='button', value='返回')       
