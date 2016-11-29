@@ -1,35 +1,81 @@
-extend ../layout
-
-block head
-  link(rel='stylesheet', href='css/uniform.css')
-  link(rel='stylesheet', href='css/select2.css')
-  link(rel='stylesheet', href='/css/jquery.gritter.css')
-  link(rel='stylesheet', href='/css/bootstrap-responsive.min.css')
-  script(src='common/js/index.js')
-
-
-block content
-    #content
-      #content-header
-        #breadcrumb
-          a.tip-bottom(href='/', title='Go to Home')
-            i.icon-home
-            |  主页
-      // Action boxes
-      .container-fluid
-        .quick-actions_homepage
-          ul.quick-actions
-            li.bg_ly
-              p #{content.bigMatchSerie.organization.casino.address.address}
-            li.bg_ly
-              p #{content.bigMatchSerie.start_date}
-              p #{content.bigMatchSerie.end_date}
-            li.bg_ly
-              p #{content.introContent}
-            li.bg_ly
-              p #{content.tips}
-              p #{content.bigMatchSerie.name}
-        // End-Action boxes
-        hr
+html
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    meta(charset='UTF-8')
+    title #{content.shareTitle}
+    meta(name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no")
+    meta(name="apple-mobile-web-app-capable" content="yes") 
+    meta(name="apple-touch-fullscreen" content="no")
+    meta(name="apple-mobile-web-app-status-bar-style" content="black-translucent")
+    meta(name="format-detection" content="telephone=no")
+    meta(name="apple-mobile-web-app-status-bar-style" content="black")
+    link(rel='stylesheet', href='../common/css/share.css')
+    link(href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css")
     
-    
+  body
+    .saishibao-mobile-header(onclick='onDownload()')
+      .app_logo
+        img(src='http://cdn.91buyin.com/logo.png')
+      |     
+      .app_name 赛事宝
+      |     
+      .app_des 牌手的移动管家
+      |     
+      .download_btn
+        i.fa.fa-apple
+        span 立即下载
+    |   
+    #1974.artWrap
+      .thumbnail
+        .mask
+        |       
+        img(src='#{content.matchImageUrl}')
+        |       
+        .artTitleWrap
+          .artTitle #{content.bigMatchSerie.name}
+      |     
+      .artCon
+        .info
+          p 地点： #{content.bigMatchSerie.organization.casino.address.address}
+          |         
+          p 时间： #{content.bigMatchSerie.start_date} - #{content.bigMatchSerie.end_date}
+          |         
+          hr(style='height:2px;border:none;border-top:2px solid #eee;')
+        |       
+        .arcArea
+          h3 赛事介绍：
+          |         
+          p #{content.introContent}
+          |         
+          hr(style='height:2px;border:none;border-top:2px solid #eee;')
+          |         
+          h3 小贴士：
+          |         
+          p #{content.tips}
+          |         
+          hr(style='height:2px;border:none;border-top:2px solid #eee;')
+        |       
+        br
+        |       
+        p(style='text-align:center')
+          a(style='cursor: pointer;',)
+            img(src='https://www.91buyin.com/images/pc/qrcode.png', style='width:60%;margin-top:10px;')
+        |       
+        p#downText(style='text-align:center')
+        |       
+        br
+        |       
+        br
+  div
+  
+  script(type="text/javascript").
+    function onDownload() {
+      var ua = navigator.userAgent.toLowerCase();
+      var isWeixin = ua.indexOf('micromessenger') != -1;
+      if (isWeixin) {
+        scroll(0,document.body.scrollHeight);
+        document.getElementById("downText").innerHTML = "请长按屏幕识别二维码下载";
+      } else {
+        window.location.href='https://itunes.apple.com/cn/app/sai-shi-bao-pai-shou-yi-dong/id1153049809?mt=8';
+      }
+    }

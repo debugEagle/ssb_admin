@@ -1,0 +1,306 @@
+div,
+span,
+ul,
+ol,
+li,
+img {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  background: #f7f7f7;
+  font-family: 'Helvetica Neue', Helvetica, Arial, Sans-serif;
+}
+
+img {
+  vertical-align: middle;
+  color: transparent;
+  font-size: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.clearfix {
+  zoom: 1;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: "\0020";
+  clear: both;
+  height: 0;
+}
+
+.artWrap {
+  max-width: 600px;
+  min-width: 300px;
+  margin: 0 auto;
+  background: #fff;
+}
+
+.artCon {
+  padding: 0 40px 70px;
+}
+
+.arcArea {
+  color: #444;
+  line-height: 2em;
+  word-break: break-all;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.arcArea h1,
+.arcArea h2,
+.arcArea h3,
+.arcArea h4,
+.arcArea h5,
+.arcArea h6 {
+  line-height: 1.6em;
+  color: #222;
+  font-weight: bold;
+  margin: 25px 0;
+}
+
+.arcArea h1 {
+  font-size: 22px;
+}
+
+.arcArea h2 {
+  font-size: 20px;
+}
+
+.arcArea h3 {
+  font-size: 18px;
+}
+
+.arcArea h4 {
+  font-size: 16px;
+}
+
+.arcArea h5 {
+  font-size: 14px;
+}
+
+.arcArea h6 {
+  font-size: 12px;
+}
+
+.saishibao-mobile-header {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 60px;
+  background: rgba(255, 255, 255, .9);
+  padding: 10px 10px 10px 60px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .15);
+}
+
+.saishibao-mobile-header .app_logo {
+  float: left;
+  margin-left: -50px;
+}
+
+.saishibao-mobile-header .app_logo img {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+
+.saishibao-mobile-header .app_name {
+  font-size: 18px;
+  font-weight: normal;
+  color: #131d28;
+  line-height: 24px;
+}
+
+.saishibao-mobile-header .app_des {
+  font-size: 12px;
+  color: #929292;
+}
+
+.saishibao-mobile-header .download_btn {
+  position: absolute;
+  right: 10px;
+  top: 17px;
+  width: 90px;
+  height: 28px;
+  line-height: 26px;
+  text-align: center;
+  font-size: 12px;
+  color: #131d28;
+  border-radius: 4px;
+  border: 1px solid #131d28;
+  vertical-align: middle;
+}
+
+.saishibao-mobile-header .download_btn span {
+  vertical-align: middle;
+}
+
+.saishibao-mobile-header .download_btn i {
+  font-size: 14px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.saishibao-mobile-header-2 {
+  padding-top: 10px;
+}
+
+.saishibao-mobile-header-2 a {
+  display: block;
+  line-height: 40px;
+  border-radius: 4px;
+  color: #444444;
+  text-align: center;
+  background: #e1e6ec;
+  cursor: pointer;
+}
+
+.thumbnail {
+  position: relative;
+  width: 100%;
+  height: 179px;
+  background: #333;
+  overflow: hidden;
+}
+
+.thumbnail .mask {
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .7);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(10%, rgba(0, 0, 0, .7)), color-stop(75%, rgba(0, 0, 0, .0))) !important;
+  background: -webkit-linear-gradient(90deg, rgba(0, 0, 0, .7) 10%, rgba(0, 0, 0, .0) 75%) !important;
+  background: linear-gradient(0deg, rgba(0, 0, 0, .7) 10%, rgba(0, 0, 0, .0) 75%) !important;
+}
+
+.thumbnail img {
+  /*position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;*/
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.thumbnail .artTitleWrap {
+  position: absolute;
+  z-index: 3;
+  bottom: 5px;
+  width: 100%;
+  padding: 0 40px;
+}
+
+.thumbnail .artTitle {
+  font-size: 30px;
+  color: #fff;
+  line-height: 1.2em;
+  font-weight: bold;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, .8);
+  /*text-align: justify;*/
+}
+
+.thumbnail .source {
+  text-align: right;
+  line-height: 30px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, .5);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .8);
+}
+
+@media (max-width: 480px) {
+  .thumbnail .artTitleWrap {
+    padding: 0 20px;
+  }
+  .thumbnail .artTitle {
+    font-size: 21px;
+  }
+  .thumbnail .source {
+    line-height: 24px;
+    font-size: 11px;
+  }
+  .artCon {
+    padding: 0 20px 70px;
+  }
+  .arcArea {
+    line-height: 1.6em;
+    font-size: 17px;
+  }
+  .arcArea h1,
+  .arcArea h2,
+  .arcArea h3,
+  .arcArea h4,
+  .arcArea h5,
+  .arcArea h6 {
+    margin: 20px 0;
+  }
+  .arcArea h1 {
+    font-size: 23px;
+  }
+  .arcArea h2 {
+    font-size: 21px;
+  }
+  .arcArea h3 {
+    font-size: 19px;
+  }
+  .arcArea h4 {
+    font-size: 17px;
+  }
+  .arcArea h5 {
+    font-size: 15px;
+  }
+  .arcArea h6 {
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 320px) {
+  .thumbnail {
+    height: 179px;
+  }
+}
+
+@media (min-width: 360px) {
+  .thumbnail {
+    height: 202px;
+  }
+}
+
+@media (min-width: 375px) {
+  .thumbnail {
+    height: 210px;
+  }
+}
+
+@media (min-width: 414px) {
+  .thumbnail {
+    height: 232px;
+  }
+}
+
+@media (min-width: 540px) {
+  .thumbnail {
+    height: 303px;
+  }
+}

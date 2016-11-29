@@ -10,9 +10,6 @@ var api = {
     serieDetail: prefix + '/business/match/bigMatch/serieDetail',
     detail: prefix + '/business/match/bigMatch/detail',
     setInfo: prefix + '/business/match/bigMatch/setInfo',
-    resultLists: prefix + '/business/match/bigMatch/resultLists',
-    resultDetail: prefix + '/business/match/bigMatch/resultDetail',
-    isPromoted: prefix + '/business/match/bigMatch/isPromoted',
 }
 
 
@@ -92,28 +89,14 @@ exports.bigMatchSerieList = function(req, res) {
 
     const lists = req.lists.rows
     const organization_id = req.lists.organization_id
-    const type = req.query.type
 
-    if (type == 1) {
-      res.render('bigMatch/serieList', {
-            title: '大赛系列列表',
-            role: req.user.role,
-            username: req.user.businessName,
-            lists: lists,
-            organization_id: organization_id,
-      })
-    }
-    else {
-      res.render('bigMatch/serieResultList', {
-            title: '大赛结果列表',
-            role: req.user.role,
-            username: req.user.businessName,
-            lists: lists,
-            organization_id: organization_id,
-      })
-    }
-
-
+    res.render('bigMatch/serieList', {
+          title: '大赛系列列表',
+          role: req.user.role,
+          username: req.user.businessName,
+          lists: lists,
+          organization_id: organization_id,
+    })
 
 }
 
@@ -319,137 +302,6 @@ exports.setInfo = function(req, res, next) {
 
           if (data.code == 0) {
               req.setInfo = data.value
-          }
-
-          next()
-
-    }, (err) => {
-        logger.warn(err.cause)
-    })
-
-}
-
-// 大赛结果列表
-exports.bigMatchResultLists = function(req, res) {
-
-    const id = req.params.id
-    const lists = req.lists.rows
-
-    res.render('bigMatch/resultList', {
-          title: '大赛结果',
-          role: req.user.role,
-          username: req.user.businessName,
-          id: id,
-          lists: lists,
-    })
-
-}
-
-exports.resultLists = function(req, res, next) {
-
-    const url = api.resultLists
-    const data = {id : req.params.id}
-
-    Http.get(url , data, tokenId = '').then((data) => {
-
-          if (data.code == 0) {
-              req.lists = data.value
-          }
-
-          next()
-
-    }, (err) => {
-        logger.warn(err.cause)
-    })
-
-}
-
-// 添加大赛结果
-exports.addBigMatchResult = function(req, res) {
-
-    const id = req.params.id
-    const type = req.isPromoted
-
-    if (type.isPromoted === false) {
-      res.render('bigMatch/addResult', {
-            title: '大赛结果详情',
-            role: req.user.role,
-            username: req.user.businessName,
-            id: id,
-      })
-    }
-    else {
-      res.render('bigMatch/addResultIsPromoted', {
-            title: '大赛结果详情',
-            role: req.user.role,
-            username: req.user.businessName,
-            id: id,
-      })
-    }
-
-
-}
-
-// 大赛结果详情
-exports.bigMatchResultDetail = function(req, res) {
-
-    const id = req.params.id
-    const name = req.detail.name
-    const items = JSON.parse(req.detail.result).items
-    const type = req.isPromoted
-
-    if (type.isPromoted === true) {
-      res.render('bigMatch/promotedResultDetail', {
-            title: '大赛结果',
-            role: req.user.role,
-            username: req.user.businessName,
-            id: id,
-            name: name,
-            items: items,
-      })
-    }
-    else {
-      res.render('bigMatch/resultDetail', {
-            title: '大赛结果',
-            role: req.user.role,
-            username: req.user.businessName,
-            id: id,
-            name: name,
-            items: items,
-      })
-    }
-
-
-}
-
-exports.resultDetail = function(req, res, next) {
-
-    const url = api.resultDetail
-    const data = {id : req.params.id}
-
-    Http.get(url , data, tokenId = '').then((data) => {
-
-          if (data.code == 0) {
-              req.detail = data.value
-          }
-
-          next()
-
-    }, (err) => {
-        logger.warn(err.cause)
-    })
-
-}
-
-exports.isPromoted = function(req, res, next) {
-
-    const url = api.isPromoted
-    const data = {id : req.params.id}
-
-    Http.get(url , data, tokenId = '').then((data) => {
-
-          if (data.code == 0) {
-              req.isPromoted = data.value
           }
 
           next()

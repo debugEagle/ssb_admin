@@ -9,6 +9,7 @@ const DailyMatch = require('../app/controllers/dailyMatch')
 const BigMatch = require('../app/controllers/bigMatch')
 const CasinoVip = require('../app/controllers/casinoVip')
 const ChooseClub = require('../app/controllers/chooseClub')
+const Http = Unify.http
 const logger = log4js.getLogger('[routes-info]')
 
 
@@ -16,10 +17,32 @@ var prefix = Conf.url
 
 var api = {
     info: prefix + '/business/info',
+    share: prefix + '/business/share',
 }
 
 
 module.exports = function (app) {
+
+    app.use('/share/:id', function (req, res, next) {
+        const url = api.share
+        const data = {id : req.params.id}
+        var tokenId = ''
+
+        Http.get(url , data, tokenId).then((data) => {
+              if (data.code == 0) {
+                const content = data.value
+
+                res.render('share', {
+                      title: '分享页面',
+                      content: content,
+                })
+              }
+
+        }, (err) => {
+            logger.warn(err.cause)
+        })
+    })
+
 
     app.use((req, res, next) => {
         const tokenId = req.cookies.tokenId
@@ -39,11 +62,10 @@ module.exports = function (app) {
         })
     })
 
+
     app.get('/addClub', Club.addClub)
 
     app.post('/upload', Match.upload)
-    //分享
-    app.get('/share/:id', Share.content, Share.shareMatch)
 
     //日赛
     app.get('/addMatch', Match.settingList,Match.serieList, Match.addMatch)
