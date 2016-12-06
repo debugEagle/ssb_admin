@@ -137,6 +137,24 @@ block content
                 |               
                 .controls
                   input.span5(type='text', readonly, value='#{setInfo.name}')
+              if !setInfo.unit_price
+                .control-group
+                  label.control-label 票面价格 :
+                  |               
+                  .controls
+                    input.span5(type='text', readonly, value='#{setInfo.face_price}')
+                .control-group
+                  label.control-label 优惠方式 :
+                  |               
+                  .controls
+                    select(name='discountWay')
+                      option(value='0')  绝对值打折
+                      option(value='1')  相对打折(百分比)
+                .control-group
+                  label.control-label 折扣数值 :
+                  |               
+                  .controls
+                    input.span5(type='text', placeholder='折扣数值', name='discountValue')
               .control-group
                 label.control-label 是否可以报名 :
                 |               

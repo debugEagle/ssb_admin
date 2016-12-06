@@ -162,10 +162,22 @@ block content
                     span.add-on
                       i(data-time-icon="icon-time", data-date-icon="icon-calendar")
               .control-group
-                label.control-label 单价 :
+                label.control-label 票面价格 :
                 |               
                 .controls
-                  input.span5(type='text', placeholder='单价', name='price')
+                  input.span5(type='text', placeholder='票面价格', name='facePrice')
+              .control-group
+                label.control-label 优惠方式 :
+                |               
+                .controls
+                  select(name='discountWay')
+                    option(value='0')  绝对值打折
+                    option(value='1')  相对打折(百分比)
+              .control-group
+                label.control-label 折扣数值 :
+                |               
+                .controls
+                  input.span5(type='text', placeholder='折扣数值', name='discountValue')
               .control-group
                 label.control-label 备注 :
                 |               
